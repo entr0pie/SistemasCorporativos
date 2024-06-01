@@ -1,4 +1,4 @@
-const BcryptService = require('../../../../services/security/bcrypt/BcryptService');
+const BcryptService = require('../../../../src/main/services/security/bcrypt/BcryptService');
 
 describe("BcryptService", () => {
     test("Should hash and verify passwords.", async () => {

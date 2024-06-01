@@ -1,9 +1,11 @@
+require('module-alias/register');
+
 var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
-var indexRouter = require('./routes/index');
+var indexRouter = require('./routes');
 var usersRouter = require('./routes/users');
 
 var app = express();
@@ -23,5 +25,5 @@ app.use('/', indexRouter);
 app.use('/user', usersRouter);
 
 app.listen(8080, () => {
-    console.log('Server is running on port 3000');
+    console.log('Server is running on port 8080');
 });
