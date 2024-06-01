@@ -22,6 +22,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 app.use('/user', usersRouter);
 
-app.listen(3000, () => {
+app.listen(8080, () => {
     console.log('Server is running on port 3000');
 });

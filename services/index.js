@@ -11,7 +11,9 @@ const bcryptService = new BcryptService(env.BCRYPT_SALT_ROUNDS);
 const userService = new UserService(db.User, bcryptService, tokenProvider);
 
 const services = {
-    tokenProvider: tokenProvider,
-    authMiddleware: authMiddleware,
-    userService,
-}
+    TokenProvider: tokenProvider,
+    AuthMiddleware: authMiddleware,
+    UserService: userService
+};
+
+module.exports = services;

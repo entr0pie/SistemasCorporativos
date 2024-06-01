@@ -37,7 +37,7 @@ class UserService {
             throw new Error("User not found.");
         }
 
-        const isPasswordEqual = await this.bcryptService.validate(password);
+        const isPasswordEqual = await this.bcryptService.validate(password, foundUser.password);
 
         if (!isPasswordEqual) {
             throw new Error("Invalid password.");
