@@ -1,7 +1,6 @@
 const BcryptService = require('../../../../services/security/bcrypt/BcryptService');
 
 describe("BcryptService", () => {
-
     test("Should hash and verify passwords.", async () => {
         const bcryptService = new BcryptService(10);
         const password = "super-secret-password";
