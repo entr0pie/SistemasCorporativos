@@ -1,4 +1,11 @@
 
+/**
+ * Creates a Middleware for Authentication.
+ * @param tokenProvider class for providing tokens.
+ * @returns {(function(Request, Response, NextFunction): Promise<any>)} express middleware.
+ *
+ * @author Thundera
+ */
 function AuthMiddlewareFactory(tokenProvider) {
     return async (req, res, next) => {
 

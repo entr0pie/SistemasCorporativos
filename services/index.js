@@ -1,6 +1,6 @@
 
-const AuthMiddlewareFactory = require('./security/AuthMiddlewareFactory');
-const JwtTokenProvider = require('./security/JwtService');
+const AuthMiddlewareFactory = require('./security/jwt/AuthMiddlewareFactory');
+const JwtTokenProvider = require('./security/jwt/JwtService');
 const env = require('../env');
 
 const tokenProvider = new JwtTokenProvider(env.JWT_SECRET);

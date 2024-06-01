@@ -1,4 +1,4 @@
-const JwtService = require('../../../services/security/JwtService');
+const JwtService = require('../../../../services/security/jwt/JwtService');
 const {JsonWebTokenError} = require("jsonwebtoken");
 
 describe("JwtService", () => {
