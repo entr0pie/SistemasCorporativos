@@ -9,6 +9,9 @@ var usersRouter = require('./routes/users');
 var app = express();
 
 const db = require('./models');
+const env = require("./env");
+
+console.log(env);
 
 app.use(logger('dev'));
 app.use(express.json());
