@@ -1,6 +1,6 @@
-const UserService = require('../../../src/main/services/user/UserService');
-const BcryptService = require('../../../src/main/services/security/bcrypt/BcryptService');
-const JwtService = require('../../../src/main/services/security/jwt/JwtService');
+const UserService = require('../../../main/services/user/UserService');
+const BcryptService = require('../../../main/services/security/bcrypt/BcryptService');
+const JwtService = require('../../../main/services/security/jwt/JwtService');
 
 describe("UserService", () => {
 

@@ -12,7 +12,7 @@ describe("Environment Variables Parsing.", () => {
     });
 
     test("Should return environment.", () => {
-        const env = require('../../src/main/env');
+        const env = require('../../main/env');
         expect(env.DATABASE_HOST).toBe(process.env.DATABASE_HOST);
         expect(env.DATABASE_NAME).toBe(process.env.DATABASE_NAME);
         expect(env.DATABASE_PASSWORD).toBe(process.env.DATABASE_PASSWORD);
@@ -22,41 +22,41 @@ describe("Environment Variables Parsing.", () => {
 
     test("Should throw if database host is missing.", () => {
         process.env.DATABASE_HOST = undefined
-        expect(() => require('../../src/main/env')).toThrow();
+        expect(() => require('../../main/env')).toThrow();
 
         process.env.DATABASE_HOST = "";
-        expect(() => require('../../src/main/env')).toThrow();
+        expect(() => require('../../main/env')).toThrow();
     });
 
     test("Should throw if database name is missing.", () => {
         process.env.DATABASE_NAME = undefined;
-        expect(() => require('../../src/main/env')).toThrow();
+        expect(() => require('../../main/env')).toThrow();
 
         process.env.DATABASE_NAME = "";
-        expect(() => require('../../src/main/env')).toThrow();
+        expect(() => require('../../main/env')).toThrow();
     });
 
     test("Should throw if database password is missing.", () => {
         process.env.DATABASE_PASSWORD = undefined;
-        expect(() => require('../../src/main/env')).toThrow();
+        expect(() => require('../../main/env')).toThrow();
 
         process.env.DATABASE_PASSWORD = "";
-        expect(() => require('../../src/main/env')).toThrow();
+        expect(() => require('../../main/env')).toThrow();
     });
 
     test("Should throw if jwt secret is missing.", () => {
         process.env.JWT_SECRET = undefined;
-        expect(() => require('../../src/main/env')).toThrow();
+        expect(() => require('../../main/env')).toThrow();
 
         process.env.JWT_SECRET = "";
-        expect(() => require('../../src/main/env')).toThrow();
+        expect(() => require('../../main/env')).toThrow();
     });
 
     test("Should throw if bcrypt salt rounds in missing or not a number", () => {
         process.env.BCRYPT_SALT_ROUNDS = null;
-        expect(() => require('../../src/main/env')).toThrow();
+        expect(() => require('../../main/env')).toThrow();
 
         process.env.BCRYPT_SALT_ROUNDS = "Text";
-        expect(() => require('../../src/main/env')).toThrow();
+        expect(() => require('../../main/env')).toThrow();
     })
 });

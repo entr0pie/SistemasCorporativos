@@ -1,4 +1,4 @@
-const AuthMiddlewareFactory = require('../../../../src/main/services/security/jwt/AuthMiddlewareFactory');
+const AuthMiddlewareFactory = require('../../../../main/services/security/jwt/AuthMiddlewareFactory');
 
 describe("AuthMiddlewareFactory", () => {
 
