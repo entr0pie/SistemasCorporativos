@@ -43,7 +43,7 @@ class UserService {
         const isPasswordEqual = await this.bcryptService.verify(password, foundUser.password);
 
         if (!isPasswordEqual) {
-            throw new Error("Invalid password-manager.");
+            throw new Error("Invalid password.");
         }
 
         return this.tokenProvider.create(email);
