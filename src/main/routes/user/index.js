@@ -3,6 +3,7 @@ const router = express.Router();
 const userController = require("../../controllers/user");
 const RequestValidator = require("../../services/data/request-validator");
 const { body, query } = require("express-validator");
+const authMiddleware = require("../../services/security/middleware");
 
 router.post("/login",
     RequestValidator(
@@ -21,6 +22,7 @@ router.post("/register",
 );
 
 router.get("/",
+    authMiddleware,
     RequestValidator(
         query("page").isInt(),
         query("size").isInt(),
