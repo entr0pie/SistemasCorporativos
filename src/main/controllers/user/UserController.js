@@ -24,7 +24,6 @@ class UserController {
             return res.status(403).send();
         }
     }
-
     async register(req, res) {
         const { email, password } = req.body;
         try {
