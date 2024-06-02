@@ -1,5 +1,5 @@
 const jwt = require("jsonwebtoken");
-const Authentication = require("./Authentication");
+const Authentication = require("../auth/Authentication");
 
 /**
  * Sign and Validate JSON Web Tokens.
@@ -20,6 +20,7 @@ class JwtService {
 
     /**
      * Creates a JWT for a subject.
+     *
      * @param {string} subject subject of the token.
      * @returns {Promise<string>} the encoded jwt.
      */

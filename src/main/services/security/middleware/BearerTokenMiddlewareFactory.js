@@ -1,12 +1,14 @@
 
 /**
- * Creates a Middleware for Authentication.
+ * Creates a Middleware for Authentication using Bearer tokens.
  * @param tokenProvider class for providing tokens.
  * @returns {(function(Request, Response, NextFunction): Promise<any>)} express middleware.
  *
+ * @see {JwtService}
+ *
  * @author Thundera
  */
-function AuthMiddlewareFactory(tokenProvider) {
+function BearerTokenMiddlewareFactory(tokenProvider) {
     return async (req, res, next) => {
 
         if (req.headers["authorization"] == null) {
@@ -28,4 +30,4 @@ function AuthMiddlewareFactory(tokenProvider) {
     };
 }
 
-module.exports = AuthMiddlewareFactory;
+module.exports = BearerTokenMiddlewareFactory;

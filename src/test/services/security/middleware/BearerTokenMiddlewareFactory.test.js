@@ -1,6 +1,6 @@
-const AuthMiddlewareFactory = require('../../../../main/services/security/jwt/AuthMiddlewareFactory');
+const BearerTokenMiddlewareFactory = require('../../../../main/services/security/middleware/BearerTokenMiddlewareFactory');
 
-describe("AuthMiddlewareFactory", () => {
+describe("BearerTokenMiddlewareFactory", () => {
 
     let tokenProvider;
     let req;
@@ -27,7 +27,7 @@ describe("AuthMiddlewareFactory", () => {
     test("Should call next if token is valid.", async () => {
         tokenProvider.validate.mockResolvedValue({ subject: 'leonardo' });
 
-        const middleware = AuthMiddlewareFactory(tokenProvider);
+        const middleware = BearerTokenMiddlewareFactory(tokenProvider);
         await middleware(req, res, next);
 
         expect(tokenProvider.validate).toHaveBeenCalledWith('validToken');
@@ -41,7 +41,7 @@ describe("AuthMiddlewareFactory", () => {
         tokenProvider.validate.mockResolvedValue({ subject: 'leonardo' });
         req.headers.authorization = null;
 
-        const middleware = AuthMiddlewareFactory(tokenProvider);
+        const middleware = BearerTokenMiddlewareFactory(tokenProvider);
         await middleware(req, res, next);
 
         expect(tokenProvider.validate).not.toHaveBeenCalled();
@@ -54,7 +54,7 @@ describe("AuthMiddlewareFactory", () => {
         tokenProvider.validate.mockResolvedValue({ subject: 'leonardo' });
         req.headers.authorization = "Bearer";
 
-        const middleware = AuthMiddlewareFactory(tokenProvider);
+        const middleware = BearerTokenMiddlewareFactory(tokenProvider);
         await middleware(req, res, next);
 
         expect(tokenProvider.validate).not.toHaveBeenCalled();
@@ -68,7 +68,7 @@ describe("AuthMiddlewareFactory", () => {
 
         req.headers.authorization = 'Bearer invalidToken'
 
-        const middleware = AuthMiddlewareFactory(tokenProvider);
+        const middleware = BearerTokenMiddlewareFactory(tokenProvider);
         await middleware(req, res, next);
 
         expect(tokenProvider.validate).toHaveBeenCalledWith('invalidToken');
