@@ -11,15 +11,18 @@ class UserService {
      * @param userModel
      * @param {BcryptService} bcryptService
      * @param {TokenProvider} tokenProvider
+     * @param {PaginatedSearcher} paginatedSearcher
      */
-    constructor(userModel, bcryptService, tokenProvider) {
+    constructor(userModel, bcryptService, tokenProvider, paginatedSearcher) {
         this.userModel = userModel;
         this.bcryptService = bcryptService;
         this.tokenProvider = tokenProvider;
+        this.paginatedSearcher = paginatedSearcher;
     }
 
     /**
      * Authenticate the user.
+     *
      * @param {string} email
      * @param {string} password
      * @returns {Promise<string>} user token.
@@ -49,6 +52,7 @@ class UserService {
 
     /**
      * Registers a new user.
+     *
      * @param {string} email
      * @param {string} password
      * @returns {Promise<any>} user model
@@ -69,6 +73,10 @@ class UserService {
             email: email,
             password: hashedPassword,
         });
+    }
+
+    async findAll(page, size) {
+        return this.paginatedSearcher({}, page, size);
     }
 }
 

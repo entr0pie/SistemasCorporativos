@@ -1,33 +1,50 @@
-const { Model } = require('sequelize');
-const PaginatedResource = require('./PaginatedResource');
+const { Model } = require("sequelize");
+const PaginatedResource = require("./PaginatedResource");
 
 /**
- * Creates a paginated searcher for a model.
- *
- * @param {Model} model base model for searcher creation.
- * @return {PaginatedSearcher} paginated searcher.
+ * Searcher for paginated data.
  *
  * @author Thundera
  */
-function PaginatedSearcherFactory(model) {
+class PaginatedSearcher {
 
     /**
-     * Searcher for paginated data.
+     * Creates a new paginated searcher.
      *
-     * @param {any} query object with search parameters (aka 'where' clause)
-     * @param {number} page page number
-     * @param {number} size size of each page
-     * @return {Promise<PaginatedResource>} paginated resource
-     * @constructor
+     * @param {Model} model
      */
-    async function PaginatedSearcher(query, page, size) {
+    constructor(model) {
+        this.model = model;
+    }
+
+    /**
+     * Search the resource using pagination.
+     *
+     * @param {number} page number of the page.
+     * @param {number} size size of each page.
+     * @return {Promise<PaginatedResource>} paginated resource.
+     */
+    async search(page, size) {
         const offset = page * size;
-        return model.findAll({ limit: size, offset: offset, where: query}).then((data) => {
+        return this.model.findAll({ limit: size, offset: offset }).then((data) => {
             return new PaginatedResource(page, size, data.length === size, page > 0, data);
         });
     }
 
-    return PaginatedSearcher;
+    /**
+     * Query the resource using pagination.
+     *
+     * @param {any} query object with search parameters (aka. 'where').
+     * @param {number} page number of the page.
+     * @param {number} size size of each page.
+     * @return {Promise<PaginatedResource>} paginated resource.
+     */
+    async query(query, page, size) {
+        const offset = page * size;
+        return this.model.findAll({ limit: size, offset: offset, where: query }).then((data) => {
+            return new PaginatedResource(page, size, data.length === size, page > 0, data);
+        });
+    }
 }
 
-module.exports = PaginatedSearcherFactory;
+module.exports = PaginatedSearcher;
