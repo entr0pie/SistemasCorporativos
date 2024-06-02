@@ -10,7 +10,7 @@ class UserService {
      *
      * @param userModel
      * @param {BcryptService} bcryptService
-     * @param {JwtService} tokenProvider
+     * @param {TokenProvider} tokenProvider
      */
     constructor(userModel, bcryptService, tokenProvider) {
         this.userModel = userModel;
@@ -37,10 +37,10 @@ class UserService {
             throw new Error("User not found.");
         }
 
-        const isPasswordEqual = await this.bcryptService.validate(password, foundUser.password);
+        const isPasswordEqual = await this.bcryptService.verify(password, foundUser.password);
 
         if (!isPasswordEqual) {
-            throw new Error("Invalid password.");
+            throw new Error("Invalid password-manager.");
         }
 
         return this.tokenProvider.create(email);
@@ -64,7 +64,7 @@ class UserService {
             throw new Error("User already registered.");
         }
 
-        const hashedPassword = await this.bcryptService.hash(password);
+        const hashedPassword = await this.bcryptService.encrypt(password);
         return await this.userModel.create({
             email: email,
             password: hashedPassword,

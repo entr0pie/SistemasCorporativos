@@ -1,12 +1,13 @@
 const jwt = require("jsonwebtoken");
-const Authentication = require("../auth/Authentication");
+const Authentication = require("../../base/Authentication");
+const TokenProvider = require("../TokenProvider");
 
 /**
  * Sign and Validate JSON Web Tokens.
  *
  * @author Thundera
  */
-class JwtService {
+class JwtService extends TokenProvider {
 
     /**
      * Creates a JWT Service, using a secret-based
@@ -15,6 +16,7 @@ class JwtService {
      * @param {string} secret
      */
     constructor(secret) {
+        super();
         this._secret = secret;
     }
 
@@ -33,8 +35,7 @@ class JwtService {
     }
 
     /**
-     * Validate if the token is signed and, therefore,
-     * authentic.
+     * Validate if the token is signed by the secret key.
      *
      * @param {string} token raw token for processing.
      * @returns {Promise<Authentication>} Authentication object, representing

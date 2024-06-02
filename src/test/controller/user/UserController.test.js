@@ -35,7 +35,7 @@ describe("UserController", () => {
 
     it("Should deny login if service fails.", async () => {
         const userService = {
-            login: jest.fn().mockImplementation(() => {throw new Error("Invalid password.")})
+            login: jest.fn().mockImplementation(() => {throw new Error("Invalid password-manager.")})
         };
 
         const userController = new UserController(userService);

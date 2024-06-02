@@ -1,6 +1,6 @@
 const UserService = require('../../../main/services/user/UserService');
-const BcryptService = require('../../../main/services/security/bcrypt/BcryptService');
-const JwtService = require('../../../main/services/security/jwt/JwtService');
+const BcryptService = require('../../../main/services/security/password-manager/bcrypt/BcryptService');
+const JwtService = require('../../../main/services/security/auth/token-provider/jwt/JwtService');
 
 describe("UserService", () => {
 
@@ -11,7 +11,7 @@ describe("UserService", () => {
             };
 
             const bcryptService = new BcryptService(10);
-            jest.spyOn(bcryptService, 'validate').mockResolvedValue(true);
+            jest.spyOn(bcryptService, 'verify').mockResolvedValue(true);
 
             const jwtService = new JwtService('secret');
             jest.spyOn(jwtService, 'create').mockResolvedValue("mocked-token");
@@ -38,17 +38,17 @@ describe("UserService", () => {
             };
 
             const bcryptService = new BcryptService(10);
-            jest.spyOn(bcryptService, 'validate').mockResolvedValue(false);
+            jest.spyOn(bcryptService, 'verify').mockResolvedValue(false);
 
             const userService = new UserService(userModel, bcryptService, null);
-            await expect(userService.login('email@email.com', '12345')).rejects.toThrow('Invalid password.');
+            await expect(userService.login('email@email.com', '12345')).rejects.toThrow('Invalid password-manager.');
         });
     });
 
     describe("register", () => {
        it("Should register an unregistered user.", async () => {
            const bcryptService = new BcryptService(10);
-           jest.spyOn(bcryptService, 'hash').mockResolvedValue('hashed_password');
+           jest.spyOn(bcryptService, 'encrypt').mockResolvedValue('hashed_password');
 
            const userModel = {
                findOne: jest.fn().mockResolvedValue(null),

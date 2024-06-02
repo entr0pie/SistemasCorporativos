@@ -1,9 +1,10 @@
 
 /**
  * Creates a Middleware for Authentication using Bearer tokens.
- * @param tokenProvider class for providing tokens.
+ * @param {TokenProvider} tokenProvider class for providing tokens.
  * @returns {(function(Request, Response, NextFunction): Promise<any>)} express middleware.
  *
+ * @see {TokenProvider}
  * @see {JwtService}
  *
  * @author Thundera

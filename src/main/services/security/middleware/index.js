@@ -1,4 +1,4 @@
-const jwtService = require("../jwt");
+const tokenProvider = require("../auth/token-provider");
 const BearerTokenMiddlewareFactory = require("./BearerTokenMiddlewareFactory");
 
-module.exports = BearerTokenMiddlewareFactory(jwtService);
+module.exports = BearerTokenMiddlewareFactory(tokenProvider);

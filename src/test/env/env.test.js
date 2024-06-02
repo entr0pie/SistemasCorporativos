@@ -36,7 +36,7 @@ describe("Environment Variables Parsing.", () => {
         expect(() => require('../../main/env')).toThrow();
     });
 
-    test("Should throw if database password is missing.", () => {
+    test("Should throw if database password-manager is missing.", () => {
         process.env.DATABASE_PASSWORD = undefined;
         expect(() => require('../../main/env')).toThrow();
 
