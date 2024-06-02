@@ -75,8 +75,20 @@ class UserService {
         });
     }
 
+    /**
+     * Search users using pagination.
+     *
+     * @param {number} page
+     * @param {size} size
+     * @return {Promise<PaginatedResource>} paginated resource.
+     */
     async findAll(page, size) {
-        return this.paginatedSearcher({}, page, size);
+        return this.paginatedSearcher.search(page, size).then((data) => {
+            data.items = data.items.map((user) =>
+                ({ id: user.id, email: user.email, createdAt: user.createdAt, updateAt: user.updatedAt })
+            );
+            return data;
+        });
     }
 }
 

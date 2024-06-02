@@ -1,4 +1,5 @@
 const UserController = require('../../../main/controllers/user/UserController');
+const {PaginatedResource} = require("../../../main/services/data/paginated");
 
 describe("UserController", () => {
 
@@ -65,6 +66,41 @@ describe("UserController", () => {
         await userController.register(req, res);
 
         expect(res.status).toHaveBeenCalledWith(403);
+        expect(res.send).toBeCalled();
+    });
+
+    it("Should find all in service success.", async () => {
+       const mockedData = new PaginatedResource(0, 2, false, false, []);
+       const userService = {
+           findAll: jest.fn().mockResolvedValue(mockedData)
+       };
+
+       const userController = new UserController(userService);
+
+       req.query = {
+           page: 0,
+           size: 2
+       };
+
+       await userController.findAll(req, res);
+       expect(res.json).toBeCalledWith(mockedData);
+    });
+
+    it("Should deny find all in service fail.", async () => {
+        const mockedData = new PaginatedResource(0, 2, false, false, []);
+        const userService = {
+            findAll: jest.fn().mockImplementation(async () => {throw new Error("Could not find users.")}),
+        };
+
+        const userController = new UserController(userService);
+
+        req.query = {
+            page: 0,
+            size: 2
+        };
+
+        await userController.findAll(req, res);
+        expect(res.status).toBeCalledWith(500);
         expect(res.send).toBeCalled();
     });
 })

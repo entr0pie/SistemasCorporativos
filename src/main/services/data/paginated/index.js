@@ -1,7 +1,7 @@
 const PaginatedResource = require('./PaginatedResource');
-const PaginatedSearcherFactory = require('./PaginatedSearcher');
+const PaginatedSearcher = require('./PaginatedSearcher');
 
 module.exports = {
     PaginatedResource,
-    PaginatedSearcherFactory
+    PaginatedSearcher
 };

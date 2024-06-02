@@ -34,6 +34,18 @@ class UserController {
             return res.status(403).send();
         }
     }
+
+    async findAll(req, res) {
+        try {
+            const page = parseInt(req.query.page);
+            const size = parseInt(req.query.size);
+            const resource = await this.userService.findAll(page, size);
+            return res.json(resource);
+        } catch (e) {
+            console.error('Could not find users: ', e);
+            return res.status(500).send();
+        }
+    }
 }
 
 module.exports = UserController;

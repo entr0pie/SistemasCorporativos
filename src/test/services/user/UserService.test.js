@@ -1,6 +1,7 @@
 const UserService = require('../../../main/services/user/UserService');
 const BcryptService = require('../../../main/services/security/password-manager/bcrypt/BcryptService');
 const JwtService = require('../../../main/services/security/auth/token-provider/jwt/JwtService');
+const {PaginatedResource} = require("../../../main/services/data/paginated");
 
 describe("UserService", () => {
 
@@ -71,5 +72,40 @@ describe("UserService", () => {
            const userService = new UserService(userModel, null, null);
            await expect(userService.register('email@email.com', 'password')).rejects.toThrow('User already registered.');
        });
+    });
+
+    describe("findAll", () => {
+        it("Should paginate users correctly and removing the password.", async () => {
+
+            const mockedData = [
+                { id: 1, email: 'email1', password: 'password1' },
+                { id: 2, email: 'email2', password: 'password2' },
+                { id: 3, email: 'email3', password: 'password3' },
+                { id: 4, email: 'email4', password: 'password4' },
+                { id: 5, email: 'email5', password: 'password5' },
+            ];
+
+            const searcher = {
+                search: jest.fn().mockImplementation(async (page, size) => {
+                    return Promise.all(
+                        mockedData
+                            .slice(page * size, page * size + size)
+                    ).then(((item) => new PaginatedResource(page, size, true, page > 0, item)));
+                }),
+            };
+
+            const userService = new UserService(null, null, null, searcher);
+            await userService.findAll(0, 2).then((resource) => {
+                const withoutPassword = mockedData.map((user) => ({ id: user.id, email: user.email, createdAt: user.createdAt, updateAt: user.updatedAt }));
+
+                expect(resource).toEqual({
+                    pageNumber: 0,
+                    pageSize: 2,
+                    hasNextPage: true,
+                    hasPreviousPage: false,
+                    items: withoutPassword.slice(0, 2)
+                });
+            });
+        });
     });
 });

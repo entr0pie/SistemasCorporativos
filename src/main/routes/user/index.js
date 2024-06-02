@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const userController = require("../../controllers/user");
 const RequestValidator = require("../../services/data/request-validator");
-const { body } = require("express-validator");
+const { body, query } = require("express-validator");
 
 router.post("/login",
     RequestValidator(
@@ -18,6 +18,14 @@ router.post("/register",
         body("password").notEmpty().isString(),
     ),
     userController.register.bind(userController)
+);
+
+router.get("/",
+    RequestValidator(
+        query("page").isInt(),
+        query("size").isInt(),
+    ),
+    userController.findAll.bind(userController),
 );
 
 module.exports = router;
