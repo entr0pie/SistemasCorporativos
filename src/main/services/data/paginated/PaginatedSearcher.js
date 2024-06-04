@@ -4,7 +4,7 @@ const PaginatedResource = require("./PaginatedResource");
 /**
  * Searcher for paginated data.
  *
- * @author Thundera
+ * @author Caio Porcel
  */
 class PaginatedSearcher {
 
