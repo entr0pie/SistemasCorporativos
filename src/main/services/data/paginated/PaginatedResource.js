@@ -1,7 +1,7 @@
 /**
  * Represents a paginated resource.
  *
- * @author Thundera
+ * @author Caio Porcel
  */
 class PaginatedResource {
     /**

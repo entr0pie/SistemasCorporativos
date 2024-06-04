@@ -1,7 +1,7 @@
 /**
  * Base class for creating and validating tokens.
  *
- * @author Thundera.
+ * @author Caio Porcel.
  */
 class TokenProvider {
 

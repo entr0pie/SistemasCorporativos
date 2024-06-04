@@ -1,7 +1,7 @@
 /**
  * Controller for finding, creating, updating and deleting products.
  *
- * @author Thundera
+ * @author Caio Porcel
  */
 class ProductController {
 
@@ -27,7 +27,7 @@ class ProductController {
     }
 
     async create(req, res) {
-        const {name, description, isActive} = req.body;
+        const { name, description, isActive } = req.body;
 
         try {
             const product = await this.productService.create(name, description, isActive);
@@ -39,7 +39,7 @@ class ProductController {
 
     async update(req, res) {
         const id = parseInt(req.params.id);
-        const {name, description, isActive} = req.body;
+        const { name, description, isActive } = req.body;
 
         try {
             const product = await this.productService.update(id, name, description, isActive);

@@ -1,14 +1,16 @@
+const { Model } = require("sequelize");
+
 /**
  * Service to register and login users.
  *
- * @author Thundera
+ * @author Caio Porcel
  */
 class UserService {
 
     /**
      * Creates a new user service.
      *
-     * @param userModel
+     * @param {Model} userModel
      * @param {BcryptService} bcryptService
      * @param {TokenProvider} tokenProvider
      * @param {PaginatedSearcher} paginatedSearcher
@@ -57,7 +59,7 @@ class UserService {
      * @param {string} password
      * @returns {Promise<any>} user model
      */
-    async register(email, password){
+    async register(email, password) {
         const foundUser = await this.userModel.findOne({
             where: {
                 email: email,

@@ -7,7 +7,7 @@ const { validationResult, ValidationChain } = require("express-validator");
  * @return express middleware.
  * @constructor
  *
- * @author Thundera
+ * @author Caio Porcel
  *
  * @link https://express-validator.github.io/docs/
  */

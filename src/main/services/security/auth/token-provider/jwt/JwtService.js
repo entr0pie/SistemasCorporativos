@@ -5,7 +5,7 @@ const TokenProvider = require("../TokenProvider");
 /**
  * Sign and Validate JSON Web Tokens.
  *
- * @author Thundera
+ * @author Caio Porcel
  */
 class JwtService extends TokenProvider {
 

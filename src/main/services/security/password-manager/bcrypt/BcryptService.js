@@ -5,7 +5,7 @@ const PasswordManager = require("../PasswordManager");
 /**
  * Hash and verify passwords.
  *
- * @author Thundera
+ * @author Caio Porcel
  */
 class BcryptService extends PasswordManager {
 

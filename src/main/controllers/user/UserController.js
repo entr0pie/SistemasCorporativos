@@ -1,7 +1,7 @@
 /**
  * Login and register endpoints.
  *
- * @author Thundera
+ * @author Caio Porcel
  */
 class UserController {
 

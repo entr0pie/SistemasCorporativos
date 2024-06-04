@@ -1,7 +1,7 @@
 /**
  * Represents a user authentication.
  *
- * @author Thundera.
+ * @author Caio Porcel
  */
 class Authentication {
 

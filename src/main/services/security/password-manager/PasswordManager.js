@@ -1,7 +1,7 @@
 /**
  * Encrypt and verify passwords.
  *
- * @author Thundera
+ * @author Caio Porcel
  */
 class PasswordManager {
 

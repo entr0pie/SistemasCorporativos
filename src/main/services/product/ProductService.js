@@ -3,7 +3,7 @@ const { Model } = require("sequelize");
 /**
  * Find, create, update and delete products.
  *
- * @author Thundera
+ * @author Caio Porcel
  */
 class ProductService {
 
