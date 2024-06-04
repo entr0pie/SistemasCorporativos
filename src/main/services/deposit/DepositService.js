@@ -1,4 +1,4 @@
-const { Model } = require("sequelize");
+const {Model} = require("sequelize");
 
 /**
  * Create, update, and retrieve deposits.
@@ -25,7 +25,7 @@ class DepositService {
      * @param {boolean?} isActive
      */
     async create(name, isActive) {
-        return this.depositModel.create({ name: name, isActive: isActive });
+        return this.depositModel.create({name: name, isActive: isActive});
     }
 
     /**
@@ -46,7 +46,7 @@ class DepositService {
             name: name,
             isActive: isActive
         });
-
+        
         return deposit.save();
     }
 

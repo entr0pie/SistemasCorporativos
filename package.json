@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "node src/main/app.js",
+    "start": "nodemon src/main/app.js",
     "test": "jest"
   },
   "dependencies": {
@@ -26,6 +26,7 @@
     "@": "src/main"
   },
   "devDependencies": {
-    "jest": "^29.7.0"
+    "jest": "^29.7.0",
+    "nodemon": "^3.1.3"
   }
 }
