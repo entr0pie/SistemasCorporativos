@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const RequestValidator = require("../../services/data/request-validator");
-const { body, query, param } = require("express-validator");
+const {body, query, param} = require("express-validator");
 const authMiddleware = require("../../services/security/middleware");
 const productController = require("../../controllers/product");
 
@@ -21,6 +21,15 @@ router.get("/:id",
         param("id").isInt(),
     ),
     productController.findById.bind(productController)
+);
+
+router.get("/",
+    authMiddleware,
+    RequestValidator(
+        query("page").isInt(),
+        query("size").isInt(),
+    ),
+    productController.findAll.bind(productController)
 );
 
 router.put("/:id",

@@ -1,95 +1,95 @@
 const ProductService = require("../../../main/services/product/ProductService");
 
 describe("ProductService", () => {
-   it("Should find a product by id.", async () => {
-       const mockedData = {
-           id: 1,
-           name: "Product 1",
-           description: "Description 1",
-           isActive: true
-       };
+    it("Should find a product by id.", async () => {
+        const mockedData = {
+            id: 1,
+            name: "Product 1",
+            description: "Description 1",
+            isActive: true
+        };
 
-       const model = {
-           findByPk: jest.fn().mockImplementation(async (id) => {
-              return id === 1 ? mockedData : null;
-           }),
-       };
+        const model = {
+            findByPk: jest.fn().mockImplementation(async (id) => {
+                return id === 1 ? mockedData : null;
+            }),
+        };
 
-       const productService = new ProductService(model);
-       await expect(productService.findById(1)).resolves.toBe(mockedData);
-       expect(model.findByPk).toHaveBeenCalledWith(1);
+        const productService = new ProductService(model);
+        await expect(productService.findById(1)).resolves.toBe(mockedData);
+        expect(model.findByPk).toHaveBeenCalledWith(1);
 
-       await expect(productService.findById(2)).resolves.toBeNull();
-       expect(model.findByPk).toHaveBeenCalledWith(2);
-   });
+        await expect(productService.findById(2)).resolves.toBeNull();
+        expect(model.findByPk).toHaveBeenCalledWith(2);
+    });
 
-   it("Should create a new product.", async () => {
-       const model = {
-           create: jest.fn().mockImplementation(async ({name, description, isActive}) =>
-               ({
-                  id: 1,
-                  name: name,
-                  description: description,
-                  isActive: isActive
-              })
-           ),
-       };
+    it("Should create a new product.", async () => {
+        const model = {
+            create: jest.fn().mockImplementation(async ({name, description, isActive}) =>
+                ({
+                    id: 1,
+                    name: name,
+                    description: description,
+                    isActive: isActive
+                })
+            ),
+        };
 
-       const productService = new ProductService(model);
-       await expect(productService.create("Product 1", "Description 1", true)).resolves.toEqual({
-           id: 1,
-           name: "Product 1",
-           description: "Description 1",
-           isActive: true
-       });
-   });
+        const productService = new ProductService(model);
+        await expect(productService.create("Product 1", "Description 1", true)).resolves.toEqual({
+            id: 1,
+            name: "Product 1",
+            description: "Description 1",
+            isActive: true
+        });
+    });
 
-   it("Should update a product.", async () => {
-      const mockedData = {
-          id: 1,
-          name: "Product 1",
-          description: "Description 1",
-          isActive: true,
-          set: jest.fn(),
-          save: jest.fn().mockImplementation(async () => mockedData)
-      };
+    it("Should update a product.", async () => {
+        const mockedData = {
+            id: 1,
+            name: "Product 1",
+            description: "Description 1",
+            isActive: true,
+            set: jest.fn(),
+            save: jest.fn().mockImplementation(async () => mockedData)
+        };
 
-      const model = {
-          findByPk: jest.fn().mockImplementation(async (id) => {
-              return id === 1 ? mockedData : null;
-          }),
-      };
+        const model = {
+            findByPk: jest.fn().mockImplementation(async (id) => {
+                return id === 1 ? mockedData : null;
+            }),
+        };
 
-      const productService = new ProductService(model);
-      await expect(productService.update(1, "Product 2", "Description 2", false)).resolves.toEqual(mockedData);
-   });
+        const productService = new ProductService(model);
+        await expect(productService.update(1, "Product 2", "Description 2", false)).resolves.toEqual(mockedData);
+    });
 
-   it("Should throw if product not found on update.", async () => {
-      const model = {
+    it("Should throw if product not found on update.", async () => {
+        const model = {
             findByPk: jest.fn().mockImplementation(async () => null),
-      };
+        };
 
-      const productService = new ProductService(model);
-      await expect(productService.update(1, "Product 2", "Description 2", false)).rejects.toThrow("Product not found");
-   });
+        const productService = new ProductService(model);
+        await expect(productService.update(1, "Product 2", "Description 2", false)).rejects.toThrow("Product not found");
+    });
 
-   it("Should delete existing product.", async () => {
-       const mockedData = {
-           id: 1,
-           destroy: jest.fn().mockResolvedValue(true)
-       };
+    it("Should delete existing product.", async () => {
+        const mockedData = {
+            id: 1,
+            destroy: jest.fn().mockResolvedValue(true)
+        };
 
-       const model = {
-           findByPk: jest.fn().mockImplementation(async (id) => {
-               return id === 1 ? mockedData : null;
-           }),
-       };
+        const model = {
+            findByPk: jest.fn().mockImplementation(async (id) => {
+                return id === 1 ? mockedData : null;
+            }),
+        };
 
-       const productService = new ProductService(model);
-       await expect(productService.delete(1)).resolves.toBe(true);
-   });
+        const productService = new ProductService(model);
+        await expect(productService.delete(1)).resolves.toBe(true);
+    });
 
-   it("Should throw if product not found when deleting", async () => {
+    it("Should throw if product not found when deleting", async () => {
         const model = {
             findByPk: jest.fn().mockImplementation(async (id) => {
                 return null;
@@ -98,5 +98,19 @@ describe("ProductService", () => {
 
         const productService = new ProductService(model);
         await expect(productService.delete(1)).rejects.toThrow();
-   });
+    });
+
+    it("Should find all products using pagination.", async () => {
+        const mockedData = [
+            {id: 1, name: "Product 1", description: "Description 1", isActive: true},
+            {id: 2, name: "Product 2", description: "Description 2", isActive: false}
+        ];
+
+        const searcher = {
+            search: jest.fn().mockResolvedValue(mockedData)
+        };
+
+        const productService = new ProductService(null, searcher);
+        await expect(productService.findAll(1, 10)).resolves.toEqual(mockedData);
+    });
 });

@@ -27,7 +27,7 @@ class ProductController {
     }
 
     async create(req, res) {
-        const { name, description, isActive } = req.body;
+        const {name, description, isActive} = req.body;
 
         try {
             const product = await this.productService.create(name, description, isActive);
@@ -39,7 +39,7 @@ class ProductController {
 
     async update(req, res) {
         const id = parseInt(req.params.id);
-        const { name, description, isActive } = req.body;
+        const {name, description, isActive} = req.body;
 
         try {
             const product = await this.productService.update(id, name, description, isActive);
@@ -57,6 +57,18 @@ class ProductController {
             return res.status(200).send();
         } catch (e) {
             return res.status(500).send(e);
+        }
+    }
+
+    async findAll(req, res) {
+        try {
+            const page = parseInt(req.query.page);
+            const size = parseInt(req.query.size);
+            const resource = await this.productService.findAll(page, size);
+            return res.json(resource);
+        } catch (e) {
+            console.error('Could not find products: ', e);
+            return res.status(500).send();
         }
     }
 }

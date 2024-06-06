@@ -3,17 +3,17 @@ const ProductController = require("../../../main/controllers/product/ProductCont
 describe("ProductController", () => {
     it("Should return a product by id.", async () => {
         const productService = {
-            findById: jest.fn().mockReturnValue({ id: 1, name: "Product 1" })
+            findById: jest.fn().mockReturnValue({id: 1, name: "Product 1"})
         };
         const productController = new ProductController(productService);
 
-        const req = { params: { id: 1 } };
-        const res = { json: jest.fn() };
+        const req = {params: {id: 1}};
+        const res = {json: jest.fn()};
 
         await productController.findById(req, res);
 
         expect(productService.findById).toHaveBeenCalledWith(1);
-        expect(res.json).toHaveBeenCalledWith({ id: 1, name: "Product 1" });
+        expect(res.json).toHaveBeenCalledWith({id: 1, name: "Product 1"});
     });
 
     it("Should return not found when product not found in find by id.", async () => {
@@ -21,8 +21,8 @@ describe("ProductController", () => {
             findById: jest.fn().mockReturnValue(null)
         };
 
-        const req = { params: { id: 1 } };
-        const res = { status: jest.fn().mockReturnThis(), send: jest.fn() };
+        const req = {params: {id: 1}};
+        const res = {status: jest.fn().mockReturnThis(), send: jest.fn()};
 
         const productController = new ProductController(productService);
         await productController.findById(req, res);
@@ -32,25 +32,25 @@ describe("ProductController", () => {
     });
 
     it("Should create a product if service is working.", async () => {
-       const product = {
-           id: 1,
-           name: "Product 1",
-           description: "Description",
-           isActive: true
-       };
+        const product = {
+            id: 1,
+            name: "Product 1",
+            description: "Description",
+            isActive: true
+        };
 
-       const productService = {
-              create: jest.fn().mockReturnValue(product),
-       };
+        const productService = {
+            create: jest.fn().mockReturnValue(product),
+        };
 
-       const req = { body: product };
-       const res = { json: jest.fn(), status: jest.fn().mockReturnThis(), send: jest.fn() };
+        const req = {body: product};
+        const res = {json: jest.fn(), status: jest.fn().mockReturnThis(), send: jest.fn()};
 
-       const productController = new ProductController(productService);
-       await productController.create(req, res);
+        const productController = new ProductController(productService);
+        await productController.create(req, res);
 
-       expect(productService.create).toHaveBeenCalledWith(product.name, product.description, product.isActive);
-       expect(res.json).toHaveBeenCalledWith(product);
+        expect(productService.create).toHaveBeenCalledWith(product.name, product.description, product.isActive);
+        expect(res.json).toHaveBeenCalledWith(product);
     });
 
     it("Should deny product creation if service isn't working.", async () => {
@@ -66,8 +66,8 @@ describe("ProductController", () => {
             }),
         };
 
-        const req = { body: product };
-        const res = { json: jest.fn(), status: jest.fn().mockReturnThis(), send: jest.fn() };
+        const req = {body: product};
+        const res = {json: jest.fn(), status: jest.fn().mockReturnThis(), send: jest.fn()};
 
         const productController = new ProductController(productService);
         await productController.create(req, res);
@@ -89,8 +89,8 @@ describe("ProductController", () => {
             update: jest.fn().mockReturnValue(product),
         };
 
-        const req = { params: { id: 1 }, body: product };
-        const res = { json: jest.fn(), status: jest.fn().mockReturnThis(), send: jest.fn() };
+        const req = {params: {id: 1}, body: product};
+        const res = {json: jest.fn(), status: jest.fn().mockReturnThis(), send: jest.fn()};
 
         const productController = new ProductController(productService);
         await productController.update(req, res);
@@ -113,8 +113,8 @@ describe("ProductController", () => {
             }),
         };
 
-        const req = { params: { id: 1 }, body: product };
-        const res = { json: jest.fn(), status: jest.fn().mockReturnThis(), send: jest.fn() };
+        const req = {params: {id: 1}, body: product};
+        const res = {json: jest.fn(), status: jest.fn().mockReturnThis(), send: jest.fn()};
 
         const productController = new ProductController(productService);
         await productController.update(req, res);
@@ -129,8 +129,8 @@ describe("ProductController", () => {
             delete: jest.fn(),
         };
 
-        const req = { params: { id: 1 } };
-        const res = { status: jest.fn().mockReturnThis(), send: jest.fn() };
+        const req = {params: {id: 1}};
+        const res = {status: jest.fn().mockReturnThis(), send: jest.fn()};
 
         const productController = new ProductController(productService);
         await productController.delete(req, res);
@@ -147,13 +147,63 @@ describe("ProductController", () => {
             }),
         };
 
-        const req = { params: { id: 1 } };
-        const res = { status: jest.fn().mockReturnThis(), send: jest.fn() };
+        const req = {params: {id: 1}};
+        const res = {status: jest.fn().mockReturnThis(), send: jest.fn()};
 
         const productController = new ProductController(productService);
         await productController.delete(req, res);
 
         expect(productService.delete).toHaveBeenCalledWith(1);
+        expect(res.status).toHaveBeenCalledWith(500);
+        expect(res.send).toHaveBeenCalled();
+    });
+
+    it("Should return all products if service is working.", async () => {
+        const products = [
+            {id: 1, name: "Product 1"},
+            {id: 2, name: "Product 2"}
+        ];
+
+        const productService = {
+            findAll: jest.fn().mockReturnValue(products)
+        };
+
+        const req = {
+            query: {
+                page: 1,
+                size: 10
+            }
+        };
+
+        const res = {json: jest.fn()};
+
+        const productController = new ProductController(productService);
+        await productController.findAll(req, res);
+
+        expect(productService.findAll).toHaveBeenCalled();
+        expect(res.json).toHaveBeenCalledWith(products);
+    });
+
+    it("Should deny all products if service isn't working.", async () => {
+        const productService = {
+            findAll: jest.fn().mockImplementation(async () => {
+                throw new Error("Error");
+            }),
+        };
+
+        const req = {
+            query: {
+                page: 1,
+                size: 10
+            }
+        };
+        
+        const res = {status: jest.fn().mockReturnThis(), send: jest.fn()};
+
+        const productController = new ProductController(productService);
+        await productController.findAll(req, res);
+
+        expect(productService.findAll).toHaveBeenCalled();
         expect(res.status).toHaveBeenCalledWith(500);
         expect(res.send).toHaveBeenCalled();
     });

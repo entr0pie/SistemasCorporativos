@@ -1,4 +1,4 @@
-const { Model } = require("sequelize");
+const {Model} = require("sequelize");
 
 /**
  * Find, create, update and delete products.
@@ -11,9 +11,11 @@ class ProductService {
      * Build a new ProductService.
      *
      * @param {Model} productModel
+     * @param {PaginatedSearcher} paginatedSearcher
      */
-    constructor(productModel) {
+    constructor(productModel, paginatedSearcher) {
         this.productModel = productModel;
+        this.paginatedSearcher = paginatedSearcher
     }
 
     /**
@@ -22,7 +24,7 @@ class ProductService {
      * @param {number} id
      */
     async findById(id) {
-        return await this.productModel.findByPk(id);
+        return this.productModel.findByPk(id);
     }
 
     /**
@@ -33,7 +35,7 @@ class ProductService {
      * @param {boolean} isActive
      */
     async create(name, description, isActive) {
-        return await this.productModel.create({
+        return this.productModel.create({
             name: name,
             description: description,
             isActive: isActive
@@ -77,6 +79,16 @@ class ProductService {
         }
 
         return product.destroy();
+    }
+
+    /**
+     * Find all products using pagination.
+     *
+     * @param {number} page
+     * @param {number} size
+     */
+    async findAll(page, size) {
+        return this.paginatedSearcher.search(page, size);
     }
 }
 
