@@ -1,4 +1,4 @@
-const { Model } = require("sequelize");
+const {Model} = require("sequelize");
 
 /**
  * Service to register and login users.
@@ -11,13 +11,13 @@ class UserService {
      * Creates a new user service.
      *
      * @param {Model} userModel
-     * @param {BcryptService} bcryptService
+     * @param {PasswordManager} passwordManager
      * @param {TokenProvider} tokenProvider
      * @param {PaginatedSearcher} paginatedSearcher
      */
-    constructor(userModel, bcryptService, tokenProvider, paginatedSearcher) {
+    constructor(userModel, passwordManager, tokenProvider, paginatedSearcher) {
         this.userModel = userModel;
-        this.bcryptService = bcryptService;
+        this.passwordManager = passwordManager;
         this.tokenProvider = tokenProvider;
         this.paginatedSearcher = paginatedSearcher;
     }
@@ -42,7 +42,7 @@ class UserService {
             throw new Error("User not found.");
         }
 
-        const isPasswordEqual = await this.bcryptService.verify(password, foundUser.password);
+        const isPasswordEqual = await this.passwordManager.verify(password, foundUser.password);
 
         if (!isPasswordEqual) {
             throw new Error("Invalid password.");
@@ -70,7 +70,7 @@ class UserService {
             throw new Error("User already registered.");
         }
 
-        const hashedPassword = await this.bcryptService.encrypt(password);
+        const hashedPassword = await this.passwordManager.encrypt(password);
         return await this.userModel.create({
             email: email,
             password: hashedPassword,
@@ -87,7 +87,7 @@ class UserService {
     async findAll(page, size) {
         return this.paginatedSearcher.search(page, size).then((data) => {
             data.items = data.items.map((user) =>
-                ({ id: user.id, email: user.email, createdAt: user.createdAt, updateAt: user.updatedAt })
+                ({id: user.id, email: user.email, createdAt: user.createdAt, updateAt: user.updatedAt})
             );
             return data;
         });
