@@ -21,6 +21,26 @@ describe("SupplierController", () => {
         expect(res.json).toHaveBeenCalledWith({id: 1, name: 'Supplier 1'});
     });
 
+    it("Should return 500 when findById throws an error", async () => {
+        const service = {
+            findById: jest.fn().mockRejectedValue(new Error('An error occurred'))
+        };
+
+        const controller = new SupplierController(service);
+
+        const req = {params: {id: 1}};
+        const res = {
+            status: jest.fn().mockReturnThis(),
+            json: jest.fn()
+        };
+
+        await controller.findById(req, res);
+
+        expect(service.findById).toHaveBeenCalledWith(1);
+        expect(res.status).toHaveBeenCalledWith(500);
+        expect(res.json).toHaveBeenCalledWith({message: 'An error occurred'});
+    });
+
     it("Should return 404 when supplier not found", async () => {
         const service = {
             findById: jest.fn().mockResolvedValue(null)

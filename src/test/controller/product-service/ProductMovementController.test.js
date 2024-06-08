@@ -319,4 +319,31 @@ describe("ProductMovementController", () => {
         expect(res.status).toHaveBeenCalledWith(200);
         expect(res.send).toHaveBeenCalledWith({status: 'found'});
     });
+
+    it("Should deny find by date interval if service fails.", async () => {
+        const productMovementService = {
+            findByDateInterval: jest.fn().mockRejectedValue(new Error()),
+        };
+
+        const productMovementController = new ProductMovementController(productMovementService);
+
+        const req = {
+            query: {
+                startDate: new Date(),
+                endDate: new Date(),
+                page: 0,
+                size: 10
+            }
+        };
+
+        const res = {
+            status: jest.fn().mockReturnThis(),
+            send: jest.fn()
+        };
+
+        const result = await productMovementController.findByDateInterval(req, res);
+
+        expect(res.status).toHaveBeenCalledWith(403);
+        expect(res.send).toHaveBeenCalled();
+    });
 });
