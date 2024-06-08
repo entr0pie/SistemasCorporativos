@@ -107,6 +107,30 @@ describe("ProductMovementController", () => {
         expect(res.send).toHaveBeenCalled();
     });
 
+    it("Should return 403 if service fails.", async () => {
+        const productMovementService = {
+            findById: jest.fn().mockRejectedValue(new Error()),
+        };
+
+        const productMovementController = new ProductMovementController(productMovementService);
+
+        const req = {
+            params: {
+                id: 1
+            }
+        };
+
+        const res = {
+            status: jest.fn().mockReturnThis(),
+            send: jest.fn()
+        };
+
+        const result = await productMovementController.findById(req, res);
+
+        expect(res.status).toHaveBeenCalledWith(403);
+        expect(res.send).toHaveBeenCalled();
+    });
+
     it("Should find all product movements if service works.", async () => {
         const productMovementService = {
             findAll: jest.fn().mockReturnValue({status: 'found'}),
