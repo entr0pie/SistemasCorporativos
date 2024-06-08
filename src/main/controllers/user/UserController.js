@@ -15,19 +15,22 @@ class UserController {
     }
 
     async login(req, res) {
-        const { email, password } = req.body;
+        const {email, password} = req.body;
         try {
             const access_token = await this.userService.login(email, password);
-            return res.json({ access_token: access_token });
+            return res.json({access_token: access_token});
         } catch (e) {
             console.error('Could not login: ', e);
             return res.status(403).send();
         }
     }
+
     async register(req, res) {
-        const { email, password } = req.body;
+        let {email, password, departmentId} = req.body;
+        departmentId = parseInt(departmentId);
+
         try {
-            const newUser = await this.userService.register(email, password);
+            const newUser = await this.userService.register(email, password, departmentId);
             return res.status(204).send();
         } catch (e) {
             console.error('Could not register: ', e);

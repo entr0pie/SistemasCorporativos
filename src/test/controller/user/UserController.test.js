@@ -31,12 +31,14 @@ describe("UserController", () => {
         const userController = new UserController(userService);
         await userController.login(req, res);
 
-        expect(res.json).toHaveBeenCalledWith({ access_token: mockAccessToken });
+        expect(res.json).toHaveBeenCalledWith({access_token: mockAccessToken});
     });
 
     it("Should deny login if service fails.", async () => {
         const userService = {
-            login: jest.fn().mockImplementation(() => {throw new Error("Invalid password-manager.")})
+            login: jest.fn().mockImplementation(() => {
+                throw new Error("Invalid password-manager.")
+            })
         };
 
         const userController = new UserController(userService);
@@ -47,10 +49,13 @@ describe("UserController", () => {
 
     it("Should register in service success.", async () => {
         const userService = {
-            register: jest.fn().mockReturnValue({ id: 1, email: 'email@email.com', password: '12345' })
+            register: jest.fn().mockReturnValue({id: 1, email: 'email@email.com', password: '12345'})
         };
 
         const userController = new UserController(userService);
+
+        req.body.departmentId = 1;
+
         await userController.register(req, res);
 
         expect(res.status).toHaveBeenCalledWith(204);
@@ -59,10 +64,14 @@ describe("UserController", () => {
 
     it("Should deny register in service fail.", async () => {
         const userService = {
-            register: jest.fn().mockImplementation(() => {throw new Error("User already registered.")})
+            register: jest.fn().mockImplementation(() => {
+                throw new Error("User already registered.")
+            })
         };
 
         const userController = new UserController(userService);
+        
+        req.body.departmentId = 1;
         await userController.register(req, res);
 
         expect(res.status).toHaveBeenCalledWith(403);
@@ -70,26 +79,28 @@ describe("UserController", () => {
     });
 
     it("Should find all in service success.", async () => {
-       const mockedData = new PaginatedResource(0, 2, false, false, []);
-       const userService = {
-           findAll: jest.fn().mockResolvedValue(mockedData)
-       };
+        const mockedData = new PaginatedResource(0, 2, false, false, []);
+        const userService = {
+            findAll: jest.fn().mockResolvedValue(mockedData)
+        };
 
-       const userController = new UserController(userService);
+        const userController = new UserController(userService);
 
-       req.query = {
-           page: 0,
-           size: 2
-       };
+        req.query = {
+            page: 0,
+            size: 2
+        };
 
-       await userController.findAll(req, res);
-       expect(res.json).toBeCalledWith(mockedData);
+        await userController.findAll(req, res);
+        expect(res.json).toBeCalledWith(mockedData);
     });
 
     it("Should deny find all in service fail.", async () => {
         const mockedData = new PaginatedResource(0, 2, false, false, []);
         const userService = {
-            findAll: jest.fn().mockImplementation(async () => {throw new Error("Could not find users.")}),
+            findAll: jest.fn().mockImplementation(async () => {
+                throw new Error("Could not find users.")
+            }),
         };
 
         const userController = new UserController(userService);

@@ -57,9 +57,10 @@ class UserService {
      *
      * @param {string} email
      * @param {string} password
+     * @param {number} departmentId
      * @returns {Promise<any>} user model
      */
-    async register(email, password) {
+    async register(email, password, departmentId) {
         const foundUser = await this.userModel.findOne({
             where: {
                 email: email,
@@ -74,6 +75,7 @@ class UserService {
         return await this.userModel.create({
             email: email,
             password: hashedPassword,
+            departmentId: departmentId
         });
     }
 

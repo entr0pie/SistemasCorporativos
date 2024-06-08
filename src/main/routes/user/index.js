@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const userController = require("../../controllers/user");
 const RequestValidator = require("../../services/data/request-validator");
-const { body, query } = require("express-validator");
+const {body, query} = require("express-validator");
 const authMiddleware = require("../../services/security/middleware");
 
 router.post("/login",
@@ -17,6 +17,7 @@ router.post("/register",
     RequestValidator(
         body("email").notEmpty().isEmail(),
         body("password").notEmpty().isString(),
+        body("departmentId").notEmpty().isInt(),
     ),
     userController.register.bind(userController)
 );
