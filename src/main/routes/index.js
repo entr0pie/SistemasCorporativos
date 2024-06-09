@@ -6,6 +6,7 @@ const productMovementRouter = require('./product-movement');
 const userRouter = require('./user');
 const supplierRouter = require('./supplier');
 const costCenterRouter = require('./cost-center');
+const quotationRouter = require('./quotation');
 
 const router = Router();
 
@@ -16,5 +17,6 @@ router.use('/product-movement', productMovementRouter);
 router.use('/user', userRouter);
 router.use('/supplier', supplierRouter);
 router.use('/cost-center', costCenterRouter);
+router.use('/quotation', quotationRouter);
 
 module.exports = router;
