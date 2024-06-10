@@ -51,6 +51,16 @@ class PurchaseService {
     }
 
     /**
+     * Find purchase by invoice.
+     *
+     * @param {string} invoice invoice number.
+     * @returns {Promise<Purchase | null>} purchase found.
+     */
+    async findByInvoice(invoice) {
+        return this.purchaseModel.findOne({where: {invoice: invoice}});
+    }
+
+    /**
      * Buys a product based on a purchase request.
      *
      * Must be available at least three quotations for the product.

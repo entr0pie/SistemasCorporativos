@@ -22,4 +22,12 @@ router.get("/",
     purchaseController.findAll.bind(purchaseController)
 );
 
+router.get("/invoice/:invoice",
+    authMiddleware,
+    RequestValidator(
+        param("invoice").isString(),
+    ),
+    purchaseController.findByInvoice.bind(purchaseController)
+);
+
 module.exports = router;

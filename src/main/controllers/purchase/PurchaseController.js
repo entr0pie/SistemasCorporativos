@@ -44,6 +44,25 @@ class PurchaseController {
             });
         }
     }
+
+    async findByInvoice(req, res) {
+        try {
+            const invoice = req.params.invoice;
+            const purchase = await this.purchaseService.findByInvoice(invoice);
+
+            if (!purchase) {
+                return res.status(404).json({
+                    message: 'Purchase not found'
+                });
+            }
+
+            return res.json(purchase);
+        } catch (error) {
+            return res.status(500).json({
+                message: error.message
+            });
+        }
+    }
 }
 
 module.exports = PurchaseController;
