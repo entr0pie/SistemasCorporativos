@@ -23,7 +23,7 @@ class PurchaseRequestService {
      * Find a purchase request by id.
      *
      * @param {number} id purchase request id.
-     * @returns {Promise<Model | null>} purchase request found or null.
+     * @returns {Promise<PurchaseRequest | null>} purchase request found or null.
      */
     findById(id) {
         return this.purchaseRequestModel.findByPk(id);

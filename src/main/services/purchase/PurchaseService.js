@@ -10,15 +10,22 @@ class PurchaseService {
     /**
      * Builds a new purchase service.
      *
-     * @param {Model} purchaseModel
+     * @param {Purchase} purchaseModel
      * @param {QuotationService} quotationService
      * @param {ProductMovementService} productMovementService
+     * @param {InvoiceGenerator} invoiceGenerator
      * @param {PaginatedSearcher} paginatedSearcher
      */
-    constructor(purchaseModel, quotationService, productMovementService, paginatedSearcher) {
+    constructor(
+        purchaseModel,
+        quotationService,
+        productMovementService,
+        invoiceGenerator,
+        paginatedSearcher) {
         this.purchaseModel = purchaseModel;
         this.quotationService = quotationService;
         this.productMovementService = productMovementService;
+        this.invoiceGenerator = invoiceGenerator;
         this.paginatedSearcher = paginatedSearcher;
     }
 
@@ -74,9 +81,12 @@ class PurchaseService {
         const sortedQuotations = quotations.sort((a, b) => a.price - b.price);
         const bestQuotation = sortedQuotations[0];
 
+        const invoice = await this.invoiceGenerator.generate();
+
         const purchase = this.purchaseModel.create({
             quotationId: bestQuotation.id,
             quantity: purchaseRequest.quantity,
+            invoice: invoice,
             unitaryPrice: bestQuotation.price,
             purchaseRequestId: purchaseRequest.id,
         });

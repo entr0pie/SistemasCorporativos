@@ -19,7 +19,8 @@ module.exports = (sequelize, DataTypes) => {
         quotationId: DataTypes.INTEGER,
         quantity: DataTypes.INTEGER,
         unitaryPrice: DataTypes.DOUBLE,
-        purchaseRequestId: DataTypes.INTEGER
+        purchaseRequestId: DataTypes.INTEGER,
+        invoice: DataTypes.STRING,
     }, {
         sequelize,
         modelName: 'Purchase',
