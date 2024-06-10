@@ -18,12 +18,21 @@ module.exports = (sequelize, DataTypes) => {
                 foreignKey: 'productId',
                 as: 'product'
             });
+            PurchaseRequest.belongsTo(models.Deposit, {
+                foreignKey: 'depositId',
+                as: 'deposit'
+            });
+            PurchaseRequest.hasOne(models.Purchase, {
+                foreignKey: 'purchaseRequestId',
+                as: 'purchase'
+            });
         }
     }
 
     PurchaseRequest.init({
         userId: DataTypes.INTEGER,
         productId: DataTypes.INTEGER,
+        depositId: DataTypes.INTEGER,
         quantity: DataTypes.INTEGER,
         status: DataTypes.ENUM("PENDING", "APPROVED", "REJECTED")
     }, {

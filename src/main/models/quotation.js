@@ -22,6 +22,10 @@ module.exports = (sequelize, DataTypes) => {
                 foreignKey: 'costCenterId',
                 as: 'costCenter'
             });
+            Quotation.hasMany(models.Purchase, {
+                foreignKey: 'quotationId',
+                as: 'purchases'
+            });
         }
     }
 

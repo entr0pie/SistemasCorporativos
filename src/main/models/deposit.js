@@ -14,6 +14,11 @@ module.exports = (sequelize, DataTypes) => {
                 foreignKey: 'depositId',
                 as: 'movements'
             });
+
+            Deposit.hasMany(models.PurchaseRequest, {
+                foreignKey: 'depositId',
+                as: 'purchaseRequests'
+            });
         }
     }
 

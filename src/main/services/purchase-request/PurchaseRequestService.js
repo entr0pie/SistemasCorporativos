@@ -9,11 +9,13 @@ class PurchaseRequestService {
      *
      * @param {Model} purchaseRequestModel
      * @param {ProductMovementService} productMovementService
+     * @param {PurchaseService} purchaseService
      * @param {PaginatedSearcher} paginatedSearcher
      */
-    constructor(purchaseRequestModel, productMovementService, paginatedSearcher) {
+    constructor(purchaseRequestModel, productMovementService, purchaseService, paginatedSearcher) {
         this.purchaseRequestModel = purchaseRequestModel;
         this.productMovementService = productMovementService;
+        this.purchaseService = purchaseService;
         this.paginatedSearcher = paginatedSearcher;
     }
 
@@ -43,18 +45,19 @@ class PurchaseRequestService {
      *
      * @param {number} userId the user id.
      * @param {number} productId the product id.
+     * @param {number} depositId the deposit id.
      * @param {number} quantity the quantity of the product.
      * @returns {Promise<Model>} created purchase request.
      */
-    create(userId, productId, quantity) {
+    create(userId, productId, depositId, quantity) {
         return this.productMovementService.countAvailableProducts(productId).then((available) => {
             const availableQuantity = available.map((product) => product.quantity).reduce((a, b) => a + b, 0);
 
             if (availableQuantity >= quantity) {
                 return this._retireFromInternalDeposits(userId, productId, quantity, available);
+            } else {
+                return this._buyFromBestQuotation(userId, productId, depositId, quantity);
             }
-
-            throw new Error("Not enough products available.");
         });
     }
 
@@ -92,6 +95,37 @@ class PurchaseRequestService {
             quantity,
             userId,
             status,
+        });
+    }
+
+    /**
+     * Buy a product from the best quotation.
+     *
+     * @private
+     *
+     * @param {number} userId the user id.
+     * @param {number} productId the product id.
+     * @param {number} depositId the deposit id.
+     * @param {number} quantity the quantity of the product.
+     * @returns {Promise<PurchaseRequest>} created purchase request.
+     */
+    async _buyFromBestQuotation(userId, productId, depositId, quantity) {
+        const purchaseRequest = await this.purchaseRequestModel.create({
+            productId,
+            depositId,
+            quantity,
+            userId,
+            status: "PENDING"
+        });
+
+        return this.purchaseService.buy(purchaseRequest).then((purchase) => {
+            purchaseRequest.status = "APPROVED";
+            purchaseRequest.save();
+            return purchaseRequest;
+        }).catch((error) => {
+            purchaseRequest.status = "REJECTED";
+            purchaseRequest.save();
+            throw error;
         });
     }
 }

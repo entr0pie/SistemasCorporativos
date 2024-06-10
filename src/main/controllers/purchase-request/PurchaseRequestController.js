@@ -51,8 +51,8 @@ class PurchaseRequestController {
                 return user.id;
             })();
 
-            const {productId, quantity} = req.body;
-            const purchaseRequest = await this.purchaseRequestService.create(userId, productId, quantity);
+            const {productId, quantity, depositId} = req.body;
+            const purchaseRequest = await this.purchaseRequestService.create(userId, productId, depositId, quantity);
 
             res.status(201).json(purchaseRequest);
         } catch (error) {
