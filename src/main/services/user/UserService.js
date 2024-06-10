@@ -94,6 +94,20 @@ class UserService {
             return data;
         });
     }
+
+    /**
+     * Find user by email.
+     *
+     * @param {string} email
+     * @returns {Promise<Model>} user model.
+     */
+    async findByEmail(email) {
+        return await this.userModel.findOne({
+            where: {
+                email: email,
+            }
+        });
+    }
 }
 
 module.exports = UserService;

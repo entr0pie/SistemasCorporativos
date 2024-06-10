@@ -32,7 +32,7 @@ class QuotationController {
             if (!quotation) {
                 return res.status(404).json({error: 'Quotation not found.'});
             }
-            
+
             return res.json(quotation);
         } catch (error) {
             res.status(500).json({error: error.message});

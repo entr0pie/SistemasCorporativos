@@ -11,6 +11,7 @@ module.exports = (sequelize, DataTypes) => {
          */
         static associate(models) {
             User.belongsTo(models.Department, {foreignKey: 'departmentId'});
+            User.hasMany(models.PurchaseRequest, {foreignKey: 'userId', as: 'purchaseRequests'});
         }
     }
 

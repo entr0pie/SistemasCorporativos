@@ -71,6 +71,24 @@ describe("QuotationController", () => {
         expect(res.json).toHaveBeenCalledWith({id: 1});
     });
 
+    it("Should return 404 when find by id fails.", async () => {
+        const req = {
+            params: {id: 1},
+        };
+        const res = {json: jest.fn(), status: jest.fn().mockReturnThis()};
+        const service = {
+            findById: jest.fn().mockResolvedValue(null),
+        };
+        const controller = new QuotationController(service);
+
+        await controller.findById(req, res);
+
+        expect(service.findById).toHaveBeenCalledWith(1);
+        expect(res.status).toHaveBeenCalledWith(404);
+        expect(res.json).toHaveBeenCalledWith({error: 'Quotation not found.'});
+
+    });
+
     it("Should return 500 when find by id fails.", async () => {
         const req = {
             params: {id: 1},

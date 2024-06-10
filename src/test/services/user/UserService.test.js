@@ -111,4 +111,15 @@ describe("UserService", () => {
             });
         });
     });
+
+    it("Should find user by email.", async () => {
+        const userModel = {
+            findOne: jest.fn().mockResolvedValue({id: 1, email: 'email', password: 'password'}),
+        };
+
+        const userService = new UserService(userModel, null, null);
+        await userService.findByEmail('email').then((user) => {
+            expect(user).toEqual({id: 1, email: 'email', password: 'password'});
+        });
+    });
 });
