@@ -13,11 +13,34 @@ class PurchaseService {
      * @param {Model} purchaseModel
      * @param {QuotationService} quotationService
      * @param {ProductMovementService} productMovementService
+     * @param {PaginatedSearcher} paginatedSearcher
      */
-    constructor(purchaseModel, quotationService, productMovementService) {
+    constructor(purchaseModel, quotationService, productMovementService, paginatedSearcher) {
         this.purchaseModel = purchaseModel;
         this.quotationService = quotationService;
         this.productMovementService = productMovementService;
+        this.paginatedSearcher = paginatedSearcher;
+    }
+
+    /**
+     * Find a purchase by id.
+     *
+     * @param {number} id purchase id.
+     * @returns {Promise<Purchase>} purchase found.
+     */
+    async findById(id) {
+        return this.purchaseModel.findByPk(id);
+    }
+
+    /**
+     * Find all purchases.
+     *
+     * @param {number} page page number.
+     * @param {number} size page size.
+     * @returns {Promise<PaginatedResource>} paginated purchases.
+     */
+    async findAll(page, size) {
+        return this.paginatedSearcher.search(page, size);
     }
 
     /**
