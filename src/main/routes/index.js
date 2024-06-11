@@ -9,6 +9,7 @@ const costCenterRouter = require('./cost-center');
 const quotationRouter = require('./quotation');
 const purchaseRequestRouter = require('./purchase-request');
 const purchaseRouter = require('./purchase');
+const financialSecurityRouter = require('./financial-security');
 
 const router = Router();
 
@@ -22,5 +23,6 @@ router.use('/cost-center', costCenterRouter);
 router.use('/quotation', quotationRouter);
 router.use('/purchase-request', purchaseRequestRouter);
 router.use('/purchase', purchaseRouter);
+router.use('/financial-security', financialSecurityRouter);
 
 module.exports = router;

@@ -114,15 +114,18 @@ class PurchaseService {
             new Date()
         );
 
+        const expirationDate = new Date();
+        expirationDate.setDate(expirationDate.getDate() + 30);
+
         const financialSecurity = await this.financialSecurityToPayService.create(
             invoice,
-            purchaseRequest.quantity,
+            purchaseRequest.parcels,
             bestQuotation.price * purchaseRequest.quantity,
-            new Date(),
+            expirationDate,
             "OPENED"
         );
 
-        return Promise.all([purchase, movement]).then((([p, m]) => p));
+        return purchase;
     }
 }
 
