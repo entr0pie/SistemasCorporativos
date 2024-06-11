@@ -12,14 +12,14 @@ module.exports = (sequelize, DataTypes) => {
         static associate(models) {
             Product.hasMany(models.ProductMovement, {
                 foreignKey: 'productId',
-                as: 'movements'
+                as: 'movement'
             });
 
             Product.hasMany(models.Quotation, {
                 foreignKey: 'productId',
                 as: 'quotations'
             });
-            
+
             Product.hasMany(models.PurchaseRequest, {
                 foreignKey: 'productId',
                 as: 'purchaseRequests'

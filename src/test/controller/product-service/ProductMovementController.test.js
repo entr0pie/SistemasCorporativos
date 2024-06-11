@@ -131,7 +131,7 @@ describe("ProductMovementController", () => {
         expect(res.send).toHaveBeenCalled();
     });
 
-    it("Should find all product movements if service works.", async () => {
+    it("Should find all product movement if service works.", async () => {
         const productMovementService = {
             findAll: jest.fn().mockReturnValue({status: 'found'}),
         };
@@ -181,7 +181,7 @@ describe("ProductMovementController", () => {
         expect(res.send).toHaveBeenCalled();
     });
 
-    it("Should find product movements by product id if service works.", async () => {
+    it("Should find product movement by product id if service works.", async () => {
         const productMovementService = {
             findByProductId: jest.fn().mockReturnValue({status: 'found'}),
         };
@@ -237,7 +237,7 @@ describe("ProductMovementController", () => {
         expect(res.send).toHaveBeenCalled();
     });
 
-    it("Should find product movements by deposit id if service works.", async () => {
+    it("Should find product movement by deposit id if service works.", async () => {
         const productMovementService = {
             findByDepositId: jest.fn().mockReturnValue({status: 'found'}),
         };
@@ -293,7 +293,7 @@ describe("ProductMovementController", () => {
         expect(res.send).toHaveBeenCalled();
     });
 
-    it("Should find product movements by date interval if service works.", async () => {
+    it("Should find product movement by date interval if service works.", async () => {
         const productMovementService = {
             findByDateInterval: jest.fn().mockReturnValue({status: 'found'}),
         };

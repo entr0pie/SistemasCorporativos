@@ -9,10 +9,12 @@ class FinancialSecurityToPayService {
      * Builds a new financial security to pay service.
      *
      * @param {FinancialSecurityToPay} model
+     * @param {MovementFinancialSecurityToPayService} movementService
      * @param {PaginatedSearcher} paginatedSearcher
      */
-    constructor(model, paginatedSearcher) {
+    constructor(model, movementService, paginatedSearcher) {
         this.model = model;
+        this.movementService = movementService;
         this.paginatedSearcher = paginatedSearcher;
     }
 
@@ -65,6 +67,10 @@ class FinancialSecurityToPayService {
             value: value,
             expirationDate: expirationDate,
             status: status
+        }).then((t) => {
+            return this.movementService.create(t.id, new Date(), "OPENING", value, 0, 0).then(() => {
+                return t;
+            });
         });
     }
 

@@ -1047,7 +1047,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"productId\": 1,\r\n    \"depositId\": 1, \r\n    \"quantity\": 200,\r\n    \"parcels\": 5\r\n}",
+							"raw": "{\r\n    \"productId\": 1,\r\n    \"depositId\": 1, \r\n    \"quantity\": 10000,\r\n    \"parcels\": 5\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1394,6 +1394,100 @@
 					"name": "to-pay",
 					"item": [
 						{
+							"name": "movements",
+							"item": [
+								{
+									"name": "find by id",
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "http://localhost:8080/financial-security/to-pay/movements/:id",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "8080",
+											"path": [
+												"financial-security",
+												"to-pay",
+												"movements",
+												":id"
+											],
+											"variable": [
+												{
+													"key": "id",
+													"value": "1"
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "find all",
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "http://localhost:8080/financial-security/to-pay/movements?page=0&size=10",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "8080",
+											"path": [
+												"financial-security",
+												"to-pay",
+												"movements"
+											],
+											"query": [
+												{
+													"key": "page",
+													"value": "0"
+												},
+												{
+													"key": "size",
+													"value": "10"
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "create",
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"financialSecurityToPayId\": 3,\r\n    \"date\": \"2024-06-12\",\r\n    \"type\": \"PAYMENT\",\r\n    \"value\": 10.0,\r\n    \"fineValue\": 0.0,\r\n    \"feeValue\": 0.0\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "http://localhost:8080/financial-security/to-pay/movements",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "8080",
+											"path": [
+												"financial-security",
+												"to-pay",
+												"movements"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
 							"name": "find by id",
 							"request": {
 								"method": "GET",
@@ -1471,7 +1565,7 @@
 									"variable": [
 										{
 											"key": "invoice",
-											"value": "2d36e56e-f79f-42de-a251-85c866cb1e61"
+											"value": "0046299e-d172-4029-97fe-ac461ca556e3"
 										}
 									]
 								}

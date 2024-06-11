@@ -4,6 +4,9 @@ const RequestValidator = require("../../../services/data/request-validator");
 const {body, query, param} = require("express-validator");
 const authMiddleware = require("../../../services/security/middleware");
 const financialSecurityToPayController = require("../../../controllers/financial-security/to-pay");
+const movementsRouter = require("./movements");
+
+router.use("/movements", movementsRouter);
 
 router.get("/",
     authMiddleware,

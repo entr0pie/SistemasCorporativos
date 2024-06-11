@@ -6,7 +6,6 @@ const authMiddleware = require("../../services/security/middleware");
 const departmentController = require("../../controllers/department");
 
 router.post("/",
-    authMiddleware,
     RequestValidator(
         body("name").notEmpty().isString(),
     ),
@@ -14,7 +13,6 @@ router.post("/",
 );
 
 router.get("/:id",
-    authMiddleware,
     RequestValidator(
         param("id").isInt(),
     ),
@@ -39,7 +37,6 @@ router.delete("/:id",
 );
 
 router.get("/",
-    authMiddleware,
     RequestValidator(
         query("page").isInt(),
         query("size").isInt(),

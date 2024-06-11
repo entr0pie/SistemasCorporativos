@@ -64,7 +64,7 @@ describe("ProductMovementService", () => {
         });
     });
 
-    it("Should find all product movements.", async () => {
+    it("Should find all product movement.", async () => {
         const response = new PaginatedResource(0, 2, false, false, []);
         const paginatedSearcher = {
             search: jest.fn().mockResolvedValue(response),

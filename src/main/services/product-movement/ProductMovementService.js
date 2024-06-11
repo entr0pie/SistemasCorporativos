@@ -2,7 +2,7 @@ const {Model, Op} = require("sequelize");
 const {PaginatedSearcher, PaginatedResource} = require("../data/paginated");
 
 /**
- * Create, read, update and delete product movements.
+ * Create, read, update and delete product movement.
  *
  * @author Caio Porcel
  */
@@ -53,52 +53,52 @@ class ProductMovementService {
     }
 
     /**
-     * Find all product movements.
+     * Find all product movement.
      *
      * @param {number} page page number.
      * @param {number} size page size.
      *
-     * @returns {Promise<PaginatedResource>} product movements found.
+     * @returns {Promise<PaginatedResource>} product movement found.
      */
     async findAll(page, size) {
         return this.paginatedSearcher.search(page, size);
     }
 
     /**
-     * Find all movements of a product.
+     * Find all movement of a product.
      *
      * @param {number} productId
      * @param {number} page
      * @param {number} size
      *
-     * @return {Promise<PaginatedResource>} product movements found.
+     * @return {Promise<PaginatedResource>} product movement found.
      */
     async findByProductId(productId, page, size) {
         return this.paginatedSearcher.query({productId: productId}, page, size);
     }
 
     /**
-     * Find all movements of a deposit.
+     * Find all movement of a deposit.
      *
      * @param {number} depositId
      * @param {number} page
      * @param {number} size
      *
-     * @return {Promise<PaginatedResource>} product movements found.
+     * @return {Promise<PaginatedResource>} product movement found.
      */
     async findByDepositId(depositId, page, size) {
         return this.paginatedSearcher.query({depositId: depositId}, page, size);
     }
 
     /**
-     * Find all movements of a product in a date interval.
+     * Find all movement of a product in a date interval.
      *
      * @param {Date} startDate
      * @param {Date} endDate
      * @param {number} page
      * @param {number} size
      *
-     * @return {Promise<PaginatedResource>} product movements found.
+     * @return {Promise<PaginatedResource>} product movement found.
      */
     async findByDateInterval(startDate, endDate, page, size) {
         return this.paginatedSearcher.query({
