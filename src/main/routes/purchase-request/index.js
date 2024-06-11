@@ -10,6 +10,7 @@ router.post("/",
     RequestValidator(
         body("productId").isInt(),
         body("quantity").isInt(),
+        body("parcels").isInt(),
     ),
     purchaseRequestController.create.bind(purchaseRequestController)
 );

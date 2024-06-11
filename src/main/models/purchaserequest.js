@@ -33,6 +33,7 @@ module.exports = (sequelize, DataTypes) => {
         userId: DataTypes.INTEGER,
         productId: DataTypes.INTEGER,
         depositId: DataTypes.INTEGER,
+        parcels: DataTypes.INTEGER,
         quantity: DataTypes.INTEGER,
         status: DataTypes.ENUM("PENDING", "APPROVED", "REJECTED")
     }, {

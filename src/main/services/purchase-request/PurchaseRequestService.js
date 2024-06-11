@@ -47,16 +47,18 @@ class PurchaseRequestService {
      * @param {number} productId the product id.
      * @param {number} depositId the deposit id.
      * @param {number} quantity the quantity of the product.
-     * @returns {Promise<Model>} created purchase request.
+     * @param {number} parcels the number of parcels.
+     *
+     * @returns {Promise<PurchaseRequest>} created purchase request.
      */
-    create(userId, productId, depositId, quantity) {
+    create(userId, productId, depositId, quantity, parcels) {
         return this.productMovementService.countAvailableProducts(productId).then((available) => {
             const availableQuantity = available.map((product) => product.quantity).reduce((a, b) => a + b, 0);
 
             if (availableQuantity >= quantity) {
                 return this._retireFromInternalDeposits(userId, productId, quantity, available);
             } else {
-                return this._buyFromBestQuotation(userId, productId, depositId, quantity);
+                return this._buyFromBestQuotation(userId, productId, depositId, quantity, parcels);
             }
         });
     }
@@ -107,14 +109,17 @@ class PurchaseRequestService {
      * @param {number} productId the product id.
      * @param {number} depositId the deposit id.
      * @param {number} quantity the quantity of the product.
+     * @param {number} parcels the number of parcels.
+     *
      * @returns {Promise<PurchaseRequest>} created purchase request.
      */
-    async _buyFromBestQuotation(userId, productId, depositId, quantity) {
+    async _buyFromBestQuotation(userId, productId, depositId, quantity, parcels) {
         const purchaseRequest = await this.purchaseRequestModel.create({
             productId,
             depositId,
             quantity,
             userId,
+            parcels,
             status: "PENDING"
         });
 

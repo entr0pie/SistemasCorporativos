@@ -14,6 +14,7 @@ class PurchaseService {
      * @param {QuotationService} quotationService
      * @param {ProductMovementService} productMovementService
      * @param {InvoiceGenerator} invoiceGenerator
+     * @param {FinancialSecurityToPayService} financialSecurityToPayService
      * @param {PaginatedSearcher} paginatedSearcher
      */
     constructor(
@@ -21,11 +22,13 @@ class PurchaseService {
         quotationService,
         productMovementService,
         invoiceGenerator,
+        financialSecurityToPayService,
         paginatedSearcher) {
         this.purchaseModel = purchaseModel;
         this.quotationService = quotationService;
         this.productMovementService = productMovementService;
         this.invoiceGenerator = invoiceGenerator;
+        this.financialSecurityToPayService = financialSecurityToPayService;
         this.paginatedSearcher = paginatedSearcher;
     }
 
@@ -93,21 +96,30 @@ class PurchaseService {
 
         const invoice = await this.invoiceGenerator.generate();
 
-        const purchase = this.purchaseModel.create({
+        const purchase = await this.purchaseModel.create({
             quotationId: bestQuotation.id,
             quantity: purchaseRequest.quantity,
             invoice: invoice,
             unitaryPrice: bestQuotation.price,
+            parcels: purchaseRequest.parcels,
             purchaseRequestId: purchaseRequest.id,
         });
 
-        const movement = this.productMovementService.create(
+        const movement = await this.productMovementService.create(
             purchaseRequest.depositId,
             purchaseRequest.productId,
             "IN",
             purchaseRequest.quantity,
             bestQuotation.price,
             new Date()
+        );
+
+        const financialSecurity = await this.financialSecurityToPayService.create(
+            invoice,
+            purchaseRequest.quantity,
+            bestQuotation.price * purchaseRequest.quantity,
+            new Date(),
+            "OPENED"
         );
 
         return Promise.all([purchase, movement]).then((([p, m]) => p));
