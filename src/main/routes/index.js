@@ -11,6 +11,7 @@ const purchaseRequestRouter = require('./purchase-request');
 const purchaseRouter = require('./purchase');
 const financialSecurityRouter = require('./financial-security');
 const clientRouter = require('./client');
+const saleRouter = require('./sale');
 
 const router = Router();
 
@@ -26,5 +27,6 @@ router.use('/purchase-request', purchaseRequestRouter);
 router.use('/purchase', purchaseRouter);
 router.use('/financial-security', financialSecurityRouter);
 router.use('/client', clientRouter);
+router.use('/sale', saleRouter);
 
 module.exports = router;
