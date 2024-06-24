@@ -9,10 +9,12 @@ class MovementFinancialSecurityToPayService {
      * Builds a new instance of MovementFinancialSecurityToPayService.
      *
      * @param {MovementFinancialSecurityToPay} model
+     * @param {FinancialSecurityToPay} financialSecurityToPayModel
      * @param {PaginatedSearcher} paginatedSearcher
      */
-    constructor(model, paginatedSearcher) {
+    constructor(model, financialSecurityToPayModel, paginatedSearcher) {
         this.model = model;
+        this.financialSecurityToPayModel = financialSecurityToPayModel;
         this.paginatedSearcher = paginatedSearcher;
     }
 
@@ -49,8 +51,14 @@ class MovementFinancialSecurityToPayService {
      *
      * @returns {Promise<MovementFinancialSecurityToPay>} movement created.
      */
-    create(financialSecurityToPayId, date, type, value, fineValue, feeValue) {
-        return this.model.create({
+    async create(financialSecurityToPayId, date, type, value, fineValue, feeValue) {
+        const financialSecurityToPay = await this.financialSecurityToPayModel.findByPk(financialSecurityToPayId);
+
+        if (!financialSecurityToPay) {
+            throw new Error("Financial security to pay not found");
+        }
+
+        const movement = await this.model.create({
             financialSecurityToPayId,
             date,
             type,
@@ -58,6 +66,26 @@ class MovementFinancialSecurityToPayService {
             fineValue,
             feeValue
         });
+
+        const movements = await this.model.findAll({
+            where: {
+                financialSecurityToPayId
+            }
+        });
+
+        const totalValue = movements.filter((movement) => movement.type === "PAYMENT").reduce((acc, movement) => acc + movement.value, 0);
+
+        if (totalValue >= financialSecurityToPay.value) {
+            await this.financialSecurityToPayModel.update({
+                status: "CLOSED"
+            }, {
+                where: {
+                    id: financialSecurityToPayId
+                }
+            });
+        }
+
+        return movement;
     }
 
     /**
