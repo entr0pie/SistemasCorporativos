@@ -65,7 +65,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"email\": \"email@email.com\",\r\n    \"password\": \"12345\",\r\n    \"departmentId\": 1\r\n}",
+							"raw": "{\r\n    \"email\": \"email@email.com\",\r\n    \"password\": \"12345\",\r\n    \"departmentId\": 2\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1600,6 +1600,217 @@
 							"response": []
 						}
 					]
+				},
+				{
+					"name": "to-receive",
+					"item": [
+						{
+							"name": "movements",
+							"item": [
+								{
+									"name": "find by id",
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "http://localhost:8080/financial-security/to-receive/movements/:id",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "8080",
+											"path": [
+												"financial-security",
+												"to-receive",
+												"movements",
+												":id"
+											],
+											"variable": [
+												{
+													"key": "id",
+													"value": "1"
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "find all",
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "http://localhost:8080/financial-security/to-receive/movements?page=0&size=10",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "8080",
+											"path": [
+												"financial-security",
+												"to-receive",
+												"movements"
+											],
+											"query": [
+												{
+													"key": "page",
+													"value": "0"
+												},
+												{
+													"key": "size",
+													"value": "10"
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "create",
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"financialSecurityToReceiveId\": 1,\r\n    \"date\": \"2024-06-24\",\r\n    \"type\": \"PAYMENT\",\r\n    \"value\": 1500.0,\r\n    \"fineValue\": 0.0,\r\n    \"feeValue\": 0.0\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "http://localhost:8080/financial-security/to-receive/movements",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "8080",
+											"path": [
+												"financial-security",
+												"to-receive",
+												"movements"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "find all",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/financial-security/to-receive?page=0&size=10",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"financial-security",
+										"to-receive"
+									],
+									"query": [
+										{
+											"key": "page",
+											"value": "0"
+										},
+										{
+											"key": "size",
+											"value": "10"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "find by id",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/financial-security/to-receive/:id",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"financial-security",
+										"to-receive",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "1"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "find by invoice",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/financial-security/to-receive/invoice/:invoice",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"financial-security",
+										"to-receive",
+										"invoice",
+										":invoice"
+									],
+									"variable": [
+										{
+											"key": "invoice",
+											"value": "e10c5353-26d3-4a38-b41b-73c09385d2d0"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "cancel",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/financial-security/to-receive/:id",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"financial-security",
+										"to-receive",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "2"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
 				}
 			]
 		},
@@ -1817,7 +2028,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"sellingDate\": \"2024-06-23\",\r\n    \"clientId\": 3,\r\n    \"details\": [\r\n        {\r\n            \"productId\": 1,\r\n            \"quantity\": 10,\r\n            \"unitaryPrice\": 10.0\r\n        }\r\n    ]\r\n    \r\n}",
+							"raw": "{\r\n    \"sellingDate\": \"2024-06-23\",\r\n    \"clientId\": 1,\r\n    \"parcels\": 10,\r\n    \"details\": [\r\n        {\r\n            \"productId\": 1,\r\n            \"quantity\": 10,\r\n            \"unitaryPrice\": 10.0\r\n        }\r\n    ]\r\n    \r\n}",
 							"options": {
 								"raw": {
 									"language": "json"

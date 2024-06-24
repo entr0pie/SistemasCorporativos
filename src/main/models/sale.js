@@ -25,6 +25,10 @@ module.exports = (sequelize, DataTypes) => {
         invoice: DataTypes.STRING,
         sellingDate: DataTypes.DATE,
         clientId: DataTypes.INTEGER,
+        /**
+         * PENDING, REJECTED, OPENED, PAID
+         */
+        status: DataTypes.STRING,
     }, {
         sequelize,
         modelName: 'Sale',

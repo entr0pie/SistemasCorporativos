@@ -14,16 +14,21 @@ class SaleService {
      * @param {Sale} model
      * @param {InvoiceGenerator} invoiceGenerator
      * @param {SaleDetailService} saleDetailService
-     *
+     * @param {FinancialSecurityToReceiveService} financialSecurityToReceiveService
+     * @param {MovementFinancialSecurityToReceiveService} movementFinancialSecurityToReceiveService
      */
     constructor(
         model,
         invoiceGenerator,
-        saleDetailService
+        saleDetailService,
+        financialSecurityToReceiveService,
+        movementFinancialSecurityToReceiveService,
     ) {
         this.model = model;
         this.invoiceGenerator = invoiceGenerator;
         this.saleDetailService = saleDetailService;
+        this.financialSecurityToReceiveService = financialSecurityToReceiveService;
+        this.movementFinancialSecurityToReceiveService = movementFinancialSecurityToReceiveService;
     }
 
     /**
@@ -65,9 +70,10 @@ class SaleService {
      *
      * @param {Date} sellingDate
      * @param {number} clientId
+     * @param {number} parcels
      * @param {{ productId: number, quantity: number, unitaryPrice: number}[]} details
      */
-    async create(sellingDate, clientId, details) {
+    async create(sellingDate, clientId, parcels, details) {
         const invoice = await this.invoiceGenerator.generate();
 
         const sale = await this.model.create({
@@ -79,7 +85,24 @@ class SaleService {
 
         const detailsWithSale = details.map(detail => ({...detail, saleId: sale.id}));
 
-        const processedDetails = await this.saleDetailService.processGroup(detailsWithSale);
+        let processedDetails;
+
+        try {
+            processedDetails = await this.saleDetailService.processGroup(detailsWithSale);
+        } catch (error) {
+            await this.model.update({status: "REJECTED"}, {where: {id: sale.id}});
+            throw error;
+        }
+
+        await this.model.update({status: "OPENED"}, {where: {id: sale.id}});
+
+        const value = processedDetails.reduce((acc, detail) => acc + (detail.quantity * detail.unitaryPrice), 0);
+
+        const expirationDate = new Date();
+        expirationDate.setDate(expirationDate.getDate() + 30);
+        await this.financialSecurityToReceiveService.create(parcels, value, expirationDate);
+
+        await this.movementFinancialSecurityToReceiveService.create(sale.id, "OPENING", value, new Date(), 0, 0);
 
         return {saleId: sale.id, sellingDate: sale.sellingDate, clientId: sale.clientId, details: processedDetails};
     }

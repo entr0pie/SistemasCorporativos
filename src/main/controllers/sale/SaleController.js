@@ -43,8 +43,9 @@ class SaleController {
         try {
             const sellingDate = new Date(req.body.sellingDate);
             const clientId = parseInt(req.body.clientId);
+            const parcels = parseInt(req.body.parcels);
             const details = req.body.details;
-            const result = await this.saleService.create(sellingDate, clientId, details);
+            const result = await this.saleService.create(sellingDate, clientId, parcels, details);
             return res.status(201).send(result);
         } catch (e) {
             res.status(500).send(e.message);
