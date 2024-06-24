@@ -82,7 +82,7 @@ class FinancialSecurityToPayService {
      * @param {number} parcels number of parcels.
      * @param {number} value total value.
      * @param {Date} expirationDate expiration date for payment.
-     * @param {"OPENED" | "CLOSED"} status status.
+     * @param {"OPENED" | "CLOSED" | "CANCELED"} status status.
      * @returns {Promise<FinancialSecurityToPay>} updated financial security to pay.
      */
     update(id, invoice, parcels, value, expirationDate, status) {
@@ -92,6 +92,20 @@ class FinancialSecurityToPayService {
             value: value,
             expirationDate: expirationDate,
             status: status
+        }, {
+            where: {id: id}
+        });
+    }
+
+    /**
+     * Cancel a financial security to pay.
+     *
+     * @param {number} id financial security to pay id.
+     * @returns {Promise<FinancialSecurityToPay>} canceled financial security to pay.
+     */
+    cancel(id) {
+        return this.model.update({
+            status: "CANCELED"
         }, {
             where: {id: id}
         });

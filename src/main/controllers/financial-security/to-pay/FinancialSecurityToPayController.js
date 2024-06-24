@@ -50,6 +50,16 @@ class FinancialSecurityToPayController {
             return res.status(500).send({message: error.message});
         }
     }
+
+    async cancel(req, res) {
+        try {
+            const id = req.params.id;
+            await this.service.cancel(id);
+            return res.status(204).send();
+        } catch (error) {
+            return res.status(500).send({message: error.message});
+        }
+    }
 }
 
 module.exports = FinancialSecurityToPayController;

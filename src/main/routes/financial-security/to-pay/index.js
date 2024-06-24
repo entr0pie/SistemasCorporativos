@@ -33,4 +33,12 @@ router.get("/invoice/:invoice",
     financialSecurityToPayController.findByInvoice.bind(financialSecurityToPayController)
 );
 
+router.delete("/:id",
+    authMiddleware,
+    RequestValidator(
+        param("id").isInt(),
+    ),
+    financialSecurityToPayController.cancel.bind(financialSecurityToPayController)
+);
+
 module.exports = router;

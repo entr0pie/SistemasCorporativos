@@ -1,7 +1,7 @@
 {
 	"info": {
 		"_postman_id": "ab830e48-5c80-4873-b7a6-eb7d99d4c9a2",
-		"name": "Corporate Systems | Login Example",
+		"name": "Corporate Systems",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "27995767"
 	},
@@ -1566,6 +1566,33 @@
 										{
 											"key": "invoice",
 											"value": "0046299e-d172-4029-97fe-ac461ca556e3"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "cancel",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/financial-security/to-pay/:id",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"financial-security",
+										"to-pay",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "1"
 										}
 									]
 								}
