@@ -1,4 +1,5 @@
-const {Router} = require('express');
+const { Router } = require('express');
+const swaggerRouter = require("./swagger");
 const departmentRouter = require('./department');
 const depositRouter = require('./deposit');
 const productRouter = require('./product');
@@ -15,6 +16,7 @@ const saleRouter = require('./sale');
 
 const router = Router();
 
+router.use('/swagger', swaggerRouter);
 router.use('/department', departmentRouter);
 router.use('/deposit', depositRouter);
 router.use('/product', productRouter);

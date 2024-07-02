@@ -1,0 +1,1553 @@
+openapi: 3.0.3
+info:
+  title: Corporate Systems
+  version: 1.0.0
+  contact: {}
+servers:
+  - url: http://localhost:8080/
+paths:
+  /user/login:
+    post:
+      tags:
+        - users
+      summary: login
+      description: login
+      operationId: login
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  example: email@email.com
+                password:
+                  type: string
+                  example: '12345'
+            examples:
+              login:
+                value:
+                  email: email@email.com
+                  password: '12345'
+      responses:
+        '200':
+          description: ''
+      security:
+        - {}
+  /user/register:
+    post:
+      tags:
+        - users
+      summary: register
+      description: register
+      operationId: register
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                departmentId:
+                  type: number
+                  example: 2
+                email:
+                  type: string
+                  example: email@email.com
+                password:
+                  type: string
+                  example: '12345'
+            examples:
+              register:
+                value:
+                  departmentId: 2
+                  email: email@email.com
+                  password: '12345'
+      responses:
+        '200':
+          description: ''
+      security:
+        - {}
+  /user:
+    get:
+      tags:
+        - users
+      summary: get all users
+      description: get all users
+      operationId: getAllUsers
+      parameters:
+        - name: page
+          in: query
+          schema:
+            type: string
+            example: '0'
+        - name: size
+          in: query
+          schema:
+            type: string
+            example: '10'
+      responses:
+        '200':
+          description: ''
+  /product:
+    get:
+      tags:
+        - product
+      summary: find all
+      description: find all
+      operationId: findAll
+      parameters:
+        - name: page
+          in: query
+          schema:
+            type: string
+            example: '0'
+        - name: size
+          in: query
+          schema:
+            type: string
+            example: '20'
+      responses:
+        '200':
+          description: ''
+    post:
+      tags:
+        - product
+      summary: create
+      description: create
+      operationId: create
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                description:
+                  type: string
+                  example: produto muito fera
+                isActive:
+                  type: boolean
+                  example: true
+                name:
+                  type: string
+                  example: Juliano
+            examples:
+              create:
+                value:
+                  description: produto muito fera
+                  isActive: true
+                  name: Juliano
+      responses:
+        '200':
+          description: ''
+  /product/{id}:
+    get:
+      tags:
+        - product
+      summary: find by id
+      description: find by id
+      operationId: findById
+      responses:
+        '200':
+          description: ''
+    put:
+      tags:
+        - product
+      summary: update
+      description: update
+      operationId: update
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                description:
+                  type: string
+                  example: O PC mais foda
+                isActive:
+                  type: boolean
+                  example: false
+                name:
+                  type: string
+                  example: PC do Ruim
+            examples:
+              update:
+                value:
+                  description: O PC mais foda
+                  isActive: false
+                  name: PC do Ruim
+      responses:
+        '200':
+          description: ''
+    delete:
+      tags:
+        - product
+      summary: delete
+      description: delete
+      operationId: delete
+      responses:
+        '200':
+          description: ''
+    parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          example: '1'
+  /deposit:
+    get:
+      tags:
+        - deposit
+      summary: find all
+      description: find all
+      operationId: findAll1
+      parameters:
+        - name: page
+          in: query
+          schema:
+            type: string
+            example: '0'
+        - name: size
+          in: query
+          schema:
+            type: string
+            example: '10'
+      responses:
+        '200':
+          description: ''
+    post:
+      tags:
+        - deposit
+      summary: create
+      description: create
+      operationId: create1
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  example: Ecoville
+            examples:
+              create:
+                value:
+                  name: Ecoville
+      responses:
+        '200':
+          description: ''
+  /deposit/{id}:
+    get:
+      tags:
+        - deposit
+      summary: find by id
+      description: find by id
+      operationId: findById1
+      responses:
+        '200':
+          description: ''
+    put:
+      tags:
+        - deposit
+      summary: update
+      description: update
+      operationId: update1
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                isActive:
+                  type: boolean
+                  example: false
+                name:
+                  type: string
+                  example: Santos Andrade
+            examples:
+              update:
+                value:
+                  isActive: false
+                  name: Santos Andrade
+      responses:
+        '200':
+          description: ''
+    parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          example: '1'
+  /product-movement:
+    get:
+      tags:
+        - product-movement
+      summary: find all
+      description: find all
+      operationId: findAll2
+      parameters:
+        - name: page
+          in: query
+          schema:
+            type: string
+            example: '0'
+        - name: size
+          in: query
+          schema:
+            type: string
+            example: '20'
+      responses:
+        '200':
+          description: ''
+    post:
+      tags:
+        - product-movement
+      summary: create
+      description: create
+      operationId: create2
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                date:
+                  type: string
+                  example: '2024-05-25'
+                depositId:
+                  type: number
+                  example: 1
+                movementType:
+                  type: string
+                  example: IN
+                productId:
+                  type: number
+                  example: 1
+                quantity:
+                  type: number
+                  example: 10
+                unitaryPrice:
+                  type: number
+                  example: 20
+            examples:
+              create:
+                value:
+                  date: '2024-05-25'
+                  depositId: 1
+                  movementType: IN
+                  productId: 1
+                  quantity: 10
+                  unitaryPrice: 20
+      responses:
+        '200':
+          description: ''
+  /product-movement/{id}:
+    get:
+      tags:
+        - product-movement
+      summary: find by id
+      description: find by id
+      operationId: findById2
+      responses:
+        '200':
+          description: ''
+    parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          example: '2'
+  /product-movement/product/{id}:
+    get:
+      tags:
+        - product-movement
+      summary: find by product id
+      description: find by product id
+      operationId: findByProductId
+      parameters:
+        - name: page
+          in: query
+          schema:
+            type: string
+            example: '0'
+        - name: size
+          in: query
+          schema:
+            type: string
+            example: '10'
+      responses:
+        '200':
+          description: ''
+    parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          example: '2'
+  /product-movement/deposit/{id}:
+    get:
+      tags:
+        - product-movement
+      summary: find by deposit id
+      description: find by deposit id
+      operationId: findByDepositId
+      parameters:
+        - name: page
+          in: query
+          schema:
+            type: string
+            example: '0'
+        - name: size
+          in: query
+          schema:
+            type: string
+            example: '10'
+      responses:
+        '200':
+          description: ''
+    parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          example: '2'
+  /product-movement/date:
+    get:
+      tags:
+        - product-movement
+      summary: find by date interval
+      description: find by date interval
+      operationId: findByDateInterval
+      parameters:
+        - name: startDate
+          in: query
+          schema:
+            type: string
+            example: '2024-05-25'
+        - name: endDate
+          in: query
+          schema:
+            type: string
+            example: '2024-05-26'
+        - name: page
+          in: query
+          schema:
+            type: string
+            example: '0'
+        - name: size
+          in: query
+          schema:
+            type: string
+            example: '10'
+      responses:
+        '200':
+          description: ''
+  /department:
+    get:
+      tags:
+        - department
+      summary: find all
+      description: find all
+      operationId: findAll3
+      parameters:
+        - name: page
+          in: query
+          schema:
+            type: string
+            example: '0'
+        - name: size
+          in: query
+          schema:
+            type: string
+            example: '10'
+      responses:
+        '200':
+          description: ''
+    post:
+      tags:
+        - department
+      summary: create
+      description: create
+      operationId: create3
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  example: SETOR DE ENGENHARIA
+            examples:
+              create:
+                value:
+                  name: SETOR DE ENGENHARIA
+      responses:
+        '200':
+          description: ''
+  /department/{id}:
+    get:
+      tags:
+        - department
+      summary: find by id
+      description: find by id
+      operationId: findById3
+      responses:
+        '200':
+          description: ''
+    put:
+      tags:
+        - department
+      summary: update
+      description: update
+      operationId: update2
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  example: SETOR DE AGRONOMIA
+            examples:
+              update:
+                value:
+                  name: SETOR DE AGRONOMIA
+      responses:
+        '200':
+          description: ''
+    delete:
+      tags:
+        - department
+      summary: delete
+      description: delete
+      operationId: delete1
+      responses:
+        '200':
+          description: ''
+    parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          example: '1'
+  /supplier:
+    get:
+      tags:
+        - supplier
+      summary: find all
+      description: find all
+      operationId: findAll4
+      parameters:
+        - name: page
+          in: query
+          schema:
+            type: string
+            example: '0'
+        - name: size
+          in: query
+          schema:
+            type: string
+            example: '10'
+      responses:
+        '200':
+          description: ''
+    post:
+      tags:
+        - supplier
+      summary: create
+      description: create
+      operationId: create4
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                address:
+                  type: string
+                  example: Rua Marechal Floriano Peixoto 1250
+                cin:
+                  type: string
+                  example: '78652994000118'
+                name:
+                  type: string
+                  example: Bar do indio
+                phone:
+                  type: string
+                  example: '+554199999999'
+            examples:
+              create:
+                value:
+                  address: Rua Marechal Floriano Peixoto 1250
+                  cin: '78652994000118'
+                  name: Bar do indio
+                  phone: '+554199999999'
+      responses:
+        '200':
+          description: ''
+  /supplier/{id}:
+    get:
+      tags:
+        - supplier
+      summary: find by id
+      description: find by id
+      operationId: findById4
+      responses:
+        '200':
+          description: ''
+    put:
+      tags:
+        - supplier
+      summary: update
+      description: update
+      operationId: update3
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                address:
+                  type: string
+                  example: Rua Marechal Floriano Peixoto 1250
+                cin:
+                  type: string
+                  example: '78652994000118'
+                name:
+                  type: string
+                  example: Bar do Americano
+                phone:
+                  type: string
+                  example: '+554199999999'
+            examples:
+              update:
+                value:
+                  address: Rua Marechal Floriano Peixoto 1250
+                  cin: '78652994000118'
+                  name: Bar do Americano
+                  phone: '+554199999999'
+      responses:
+        '200':
+          description: ''
+    delete:
+      tags:
+        - supplier
+      summary: delete
+      description: delete
+      operationId: delete2
+      responses:
+        '200':
+          description: ''
+    parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          example: '1'
+  /cost-center:
+    get:
+      tags:
+        - cost-center
+      summary: find all
+      description: find all
+      operationId: findAll5
+      parameters:
+        - name: page
+          in: query
+          schema:
+            type: string
+            example: '0'
+        - name: size
+          in: query
+          schema:
+            type: string
+            example: '10'
+      responses:
+        '200':
+          description: ''
+    post:
+      tags:
+        - cost-center
+      summary: create
+      description: create
+      operationId: create5
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                code:
+                  type: string
+                  example: CCP01
+                name:
+                  type: string
+                  example: Centro de Custos Area da Produção
+            examples:
+              create:
+                value:
+                  code: CCP01
+                  name: Centro de Custos Area da Produção
+      responses:
+        '200':
+          description: ''
+  /cost-center/{id}:
+    get:
+      tags:
+        - cost-center
+      summary: find by id
+      description: find by id
+      operationId: findById5
+      responses:
+        '200':
+          description: ''
+    put:
+      tags:
+        - cost-center
+      summary: update
+      description: update
+      operationId: update4
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                code:
+                  type: string
+                  example: CCP02
+                name:
+                  type: string
+                  example: Centro de Custos Area da Engenharia
+            examples:
+              update:
+                value:
+                  code: CCP02
+                  name: Centro de Custos Area da Engenharia
+      responses:
+        '200':
+          description: ''
+    delete:
+      tags:
+        - cost-center
+      summary: delete
+      description: delete
+      operationId: delete3
+      responses:
+        '200':
+          description: ''
+    parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          example: '1'
+  /purchase-request:
+    get:
+      tags:
+        - purchase-request
+      summary: find all
+      description: find all
+      operationId: findAll6
+      parameters:
+        - name: page
+          in: query
+          schema:
+            type: string
+            example: '0'
+        - name: size
+          in: query
+          schema:
+            type: string
+            example: '10'
+      responses:
+        '200':
+          description: ''
+    post:
+      tags:
+        - purchase-request
+      summary: create
+      description: create
+      operationId: create6
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                depositId:
+                  type: number
+                  example: 1
+                parcels:
+                  type: number
+                  example: 5
+                productId:
+                  type: number
+                  example: 1
+                quantity:
+                  type: number
+                  example: 10000
+            examples:
+              create:
+                value:
+                  depositId: 1
+                  parcels: 5
+                  productId: 1
+                  quantity: 10000
+      responses:
+        '200':
+          description: ''
+  /purchase-request/{id}:
+    get:
+      tags:
+        - purchase-request
+      summary: find by id
+      description: find by id
+      operationId: findById6
+      responses:
+        '200':
+          description: ''
+    delete:
+      tags:
+        - purchase-request
+      summary: cancel
+      description: cancel
+      operationId: cancel
+      responses:
+        '200':
+          description: ''
+    parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          example: '1'
+  /quotation:
+    get:
+      tags:
+        - quotation
+      summary: find all
+      description: find all
+      operationId: findAll7
+      parameters:
+        - name: page
+          in: query
+          schema:
+            type: string
+            example: '0'
+        - name: size
+          in: query
+          schema:
+            type: string
+            example: '10'
+      responses:
+        '200':
+          description: ''
+    post:
+      tags:
+        - quotation
+      summary: create
+      description: create
+      operationId: create7
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                costCenterId:
+                  type: number
+                  example: 1
+                date:
+                  type: string
+                  example: '2024-05-25'
+                expirationDate:
+                  type: string
+                  example: '2024-06-31'
+                price:
+                  type: number
+                  example: 10
+                productId:
+                  type: number
+                  example: 1
+                supplierId:
+                  type: number
+                  example: 1
+            examples:
+              create:
+                value:
+                  costCenterId: 1
+                  date: '2024-05-25'
+                  expirationDate: '2024-06-31'
+                  price: 10
+                  productId: 1
+                  supplierId: 1
+      responses:
+        '200':
+          description: ''
+  /quotation/{id}:
+    get:
+      tags:
+        - quotation
+      summary: find by id
+      description: find by id
+      operationId: findById7
+      responses:
+        '200':
+          description: ''
+    put:
+      tags:
+        - quotation
+      summary: update
+      description: update
+      operationId: update5
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                costCenterId:
+                  type: number
+                  example: 1
+                date:
+                  type: string
+                  example: '2024-05-25'
+                expirationDate:
+                  type: string
+                  example: '2024-05-31'
+                price:
+                  type: number
+                  example: 20
+                productId:
+                  type: number
+                  example: 1
+                supplierId:
+                  type: number
+                  example: 1
+            examples:
+              update:
+                value:
+                  costCenterId: 1
+                  date: '2024-05-25'
+                  expirationDate: '2024-05-31'
+                  price: 20
+                  productId: 1
+                  supplierId: 1
+      responses:
+        '200':
+          description: ''
+    delete:
+      tags:
+        - quotation
+      summary: delete
+      description: delete
+      operationId: delete4
+      responses:
+        '200':
+          description: ''
+    parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          example: '2'
+  /purchase/{id}:
+    get:
+      tags:
+        - purchase
+      summary: find by id
+      description: find by id
+      operationId: findById8
+      responses:
+        '200':
+          description: ''
+    parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          example: '5'
+  /purchase:
+    get:
+      tags:
+        - purchase
+      summary: find all
+      description: find all
+      operationId: findAll8
+      parameters:
+        - name: page
+          in: query
+          schema:
+            type: string
+            example: '0'
+        - name: size
+          in: query
+          schema:
+            type: string
+            example: '10'
+      responses:
+        '200':
+          description: ''
+  /purchase/invoice/{invoice}:
+    get:
+      tags:
+        - purchase
+      summary: find by invoice
+      description: find by invoice
+      operationId: findByInvoice
+      responses:
+        '200':
+          description: ''
+    parameters:
+      - name: invoice
+        in: path
+        required: true
+        schema:
+          type: string
+          example: 145d1658-078c-42fb-9b32-27480741f51c
+  /financial-security/to-pay/movements/{id}:
+    get:
+      tags:
+        - financial-security
+        - to-pay
+        - movements
+      summary: find by id
+      description: find by id
+      operationId: findById9
+      responses:
+        '200':
+          description: ''
+    parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          example: '1'
+  /financial-security/to-pay/movements:
+    get:
+      tags:
+        - financial-security
+        - to-pay
+        - movements
+      summary: find all
+      description: find all
+      operationId: findAll9
+      parameters:
+        - name: page
+          in: query
+          schema:
+            type: string
+            example: '0'
+        - name: size
+          in: query
+          schema:
+            type: string
+            example: '10'
+      responses:
+        '200':
+          description: ''
+    post:
+      tags:
+        - financial-security
+        - to-pay
+        - movements
+      summary: create
+      description: create
+      operationId: create8
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                date:
+                  type: string
+                  example: '2024-06-12'
+                feeValue:
+                  type: number
+                  example: 0
+                financialSecurityToPayId:
+                  type: number
+                  example: 2
+                fineValue:
+                  type: number
+                  example: 0
+                type:
+                  type: string
+                  example: PAYMENT
+                value:
+                  type: number
+                  example: 10000
+            examples:
+              create:
+                value:
+                  date: '2024-06-12'
+                  feeValue: 0
+                  financialSecurityToPayId: 2
+                  fineValue: 0
+                  type: PAYMENT
+                  value: 10000
+      responses:
+        '200':
+          description: ''
+  /financial-security/to-pay/{id}:
+    get:
+      tags:
+        - financial-security
+        - to-pay
+      summary: find by id
+      description: find by id
+      operationId: findById10
+      responses:
+        '200':
+          description: ''
+    delete:
+      tags:
+        - financial-security
+        - to-pay
+      summary: cancel
+      description: cancel
+      operationId: cancel1
+      responses:
+        '200':
+          description: ''
+    parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          example: '1'
+  /financial-security/to-pay:
+    get:
+      tags:
+        - financial-security
+        - to-pay
+      summary: find all
+      description: find all
+      operationId: findAll10
+      parameters:
+        - name: page
+          in: query
+          schema:
+            type: string
+            example: '0'
+        - name: size
+          in: query
+          schema:
+            type: string
+            example: '10'
+      responses:
+        '200':
+          description: ''
+  /financial-security/to-pay/invoice/{invoice}:
+    get:
+      tags:
+        - financial-security
+        - to-pay
+      summary: find by invoice
+      description: find by invoice
+      operationId: findByInvoice1
+      responses:
+        '200':
+          description: ''
+    parameters:
+      - name: invoice
+        in: path
+        required: true
+        schema:
+          type: string
+          example: 0046299e-d172-4029-97fe-ac461ca556e3
+  /financial-security/to-receive/movements/{id}:
+    get:
+      tags:
+        - financial-security
+        - to-receive
+        - movements1
+      summary: find by id
+      description: find by id
+      operationId: findById11
+      responses:
+        '200':
+          description: ''
+    parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          example: '1'
+  /financial-security/to-receive/movements:
+    get:
+      tags:
+        - financial-security
+        - to-receive
+        - movements1
+      summary: find all
+      description: find all
+      operationId: findAll11
+      parameters:
+        - name: page
+          in: query
+          schema:
+            type: string
+            example: '0'
+        - name: size
+          in: query
+          schema:
+            type: string
+            example: '10'
+      responses:
+        '200':
+          description: ''
+    post:
+      tags:
+        - financial-security
+        - to-receive
+        - movements1
+      summary: create
+      description: create
+      operationId: create9
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                date:
+                  type: string
+                  example: '2024-06-24'
+                feeValue:
+                  type: number
+                  example: 0
+                financialSecurityToReceiveId:
+                  type: number
+                  example: 1
+                fineValue:
+                  type: number
+                  example: 0
+                type:
+                  type: string
+                  example: PAYMENT
+                value:
+                  type: number
+                  example: 1500
+            examples:
+              create:
+                value:
+                  date: '2024-06-24'
+                  feeValue: 0
+                  financialSecurityToReceiveId: 1
+                  fineValue: 0
+                  type: PAYMENT
+                  value: 1500
+      responses:
+        '200':
+          description: ''
+  /financial-security/to-receive:
+    get:
+      tags:
+        - financial-security
+        - to-receive
+      summary: find all
+      description: find all
+      operationId: findAll12
+      parameters:
+        - name: page
+          in: query
+          schema:
+            type: string
+            example: '0'
+        - name: size
+          in: query
+          schema:
+            type: string
+            example: '10'
+      responses:
+        '200':
+          description: ''
+  /financial-security/to-receive/{id}:
+    get:
+      tags:
+        - financial-security
+        - to-receive
+      summary: find by id
+      description: find by id
+      operationId: findById12
+      responses:
+        '200':
+          description: ''
+    delete:
+      tags:
+        - financial-security
+        - to-receive
+      summary: cancel
+      description: cancel
+      operationId: cancel2
+      responses:
+        '200':
+          description: ''
+    parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          example: '2'
+  /financial-security/to-receive/invoice/{invoice}:
+    get:
+      tags:
+        - financial-security
+        - to-receive
+      summary: find by invoice
+      description: find by invoice
+      operationId: findByInvoice2
+      responses:
+        '200':
+          description: ''
+    parameters:
+      - name: invoice
+        in: path
+        required: true
+        schema:
+          type: string
+          example: e10c5353-26d3-4a38-b41b-73c09385d2d0
+  /client:
+    get:
+      tags:
+        - client
+      summary: find all
+      description: find all
+      operationId: findAll13
+      parameters:
+        - name: page
+          in: query
+          schema:
+            type: string
+            example: '0'
+        - name: size
+          in: query
+          schema:
+            type: string
+            example: '10'
+      responses:
+        '200':
+          description: ''
+    post:
+      tags:
+        - client
+      summary: create
+      description: create
+      operationId: create10
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                documentNumber:
+                  type: string
+                  example: '12345567890'
+                name:
+                  type: string
+                  example: Arthur
+                phone:
+                  type: string
+                  example: '+554199999999999'
+            examples:
+              create:
+                value:
+                  documentNumber: '12345567890'
+                  name: Arthur
+                  phone: '+554199999999999'
+      responses:
+        '200':
+          description: ''
+  /client/{id}:
+    get:
+      tags:
+        - client
+      summary: find by id
+      description: find by id
+      operationId: findById13
+      responses:
+        '200':
+          description: ''
+    put:
+      tags:
+        - client
+      summary: update
+      description: update
+      operationId: update6
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                documentNumber:
+                  type: string
+                  example: '2136783261831'
+                name:
+                  type: string
+                  example: Leonardo
+                phone:
+                  type: string
+                  example: '+123567123'
+            examples:
+              update:
+                value:
+                  documentNumber: '2136783261831'
+                  name: Leonardo
+                  phone: '+123567123'
+      responses:
+        '200':
+          description: ''
+    delete:
+      tags:
+        - client
+      summary: delete
+      description: delete
+      operationId: delete5
+      responses:
+        '200':
+          description: ''
+    parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          example: '2'
+  /sale/{id}:
+    get:
+      tags:
+        - sale
+      summary: find by id
+      description: find by id
+      operationId: findById14
+      responses:
+        '200':
+          description: ''
+    parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          example: '3'
+  /sale:
+    get:
+      tags:
+        - sale
+      summary: find all
+      description: find all
+      operationId: findAll14
+      parameters:
+        - name: page
+          in: query
+          schema:
+            type: string
+            example: '0'
+        - name: size
+          in: query
+          schema:
+            type: string
+            example: '10'
+      responses:
+        '200':
+          description: ''
+    post:
+      tags:
+        - sale
+      summary: create
+      description: create
+      operationId: create11
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                clientId:
+                  type: number
+                  example: 1
+                details:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      productId:
+                        type: number
+                        example: 1
+                      quantity:
+                        type: number
+                        example: 10
+                      unitaryPrice:
+                        type: number
+                        example: 10
+                  example:
+                    - productId: 1
+                      quantity: 10
+                      unitaryPrice: 10
+                parcels:
+                  type: number
+                  example: 10
+                sellingDate:
+                  type: string
+                  example: '2024-06-23'
+            examples:
+              create:
+                value:
+                  clientId: 1
+                  details:
+                    - productId: 1
+                      quantity: 10
+                      unitaryPrice: 10
+                  parcels: 10
+                  sellingDate: '2024-06-23'
+      responses:
+        '200':
+          description: ''
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+security:
+  - bearerAuth: []
+tags:
+  - name: users
+  - name: product
+  - name: deposit
+  - name: product-movement
+  - name: department
+  - name: supplier
+  - name: cost-center
+  - name: purchase-request
+  - name: quotation
+  - name: purchase
+  - name: financial-security
+  - name: to-pay
+  - name: movements
+  - name: to-receive
+  - name: movements1
+  - name: client
+  - name: sale
