@@ -2,7 +2,8 @@ openapi: 3.0.3
 info:
   title: Corporate Systems
   version: 1.0.0
-  contact: {}
+  description: Corporate Systems API. This API is responsible for managing the company's financial and sales system.
+  contact: { email: caio.porcel@cs.up.edu.br, name: Caio Porcel }
 servers:
   - url: http://localhost:8080/
 paths:
@@ -24,15 +25,15 @@ paths:
                   example: email@email.com
                 password:
                   type: string
-                  example: '12345'
+                  example: "12345"
             examples:
               login:
                 value:
                   email: email@email.com
-                  password: '12345'
+                  password: "12345"
       responses:
-        '200':
-          description: ''
+        "200":
+          description: ""
       security:
         - {}
   /user/register:
@@ -56,39 +57,39 @@ paths:
                   example: email@email.com
                 password:
                   type: string
-                  example: '12345'
+                  example: "12345"
             examples:
               register:
                 value:
                   departmentId: 2
                   email: email@email.com
-                  password: '12345'
+                  password: "12345"
       responses:
-        '200':
-          description: ''
+        "200":
+          description: ""
       security:
         - {}
   /user:
     get:
       tags:
         - users
-      summary: get all users
-      description: get all users
+      summary: get all Users
+      description: get all Users
       operationId: getAllUsers
       parameters:
         - name: page
           in: query
           schema:
             type: string
-            example: '0'
+            example: "0"
         - name: size
           in: query
           schema:
             type: string
-            example: '10'
+            example: "10"
       responses:
-        '200':
-          description: ''
+        "200":
+          description: ""
   /product:
     get:
       tags:
@@ -101,15 +102,15 @@ paths:
           in: query
           schema:
             type: string
-            example: '0'
+            example: "0"
         - name: size
           in: query
           schema:
             type: string
-            example: '20'
+            example: "20"
       responses:
-        '200':
-          description: ''
+        "200":
+          description: ""
     post:
       tags:
         - product
@@ -138,8 +139,8 @@ paths:
                   isActive: true
                   name: Juliano
       responses:
-        '200':
-          description: ''
+        "200":
+          description: ""
   /product/{id}:
     get:
       tags:
@@ -148,8 +149,8 @@ paths:
       description: find by id
       operationId: findById
       responses:
-        '200':
-          description: ''
+        "200":
+          description: ""
     put:
       tags:
         - product
@@ -178,8 +179,8 @@ paths:
                   isActive: false
                   name: PC do Ruim
       responses:
-        '200':
-          description: ''
+        "200":
+          description: ""
     delete:
       tags:
         - product
@@ -187,15 +188,15 @@ paths:
       description: delete
       operationId: delete
       responses:
-        '200':
-          description: ''
+        "200":
+          description: ""
     parameters:
       - name: id
         in: path
         required: true
         schema:
           type: string
-          example: '1'
+          example: "1"
   /deposit:
     get:
       tags:
@@ -208,15 +209,15 @@ paths:
           in: query
           schema:
             type: string
-            example: '0'
+            example: "0"
         - name: size
           in: query
           schema:
             type: string
-            example: '10'
+            example: "10"
       responses:
-        '200':
-          description: ''
+        "200":
+          description: ""
     post:
       tags:
         - deposit
@@ -237,8 +238,8 @@ paths:
                 value:
                   name: Ecoville
       responses:
-        '200':
-          description: ''
+        "200":
+          description: ""
   /deposit/{id}:
     get:
       tags:
@@ -247,8 +248,8 @@ paths:
       description: find by id
       operationId: findById1
       responses:
-        '200':
-          description: ''
+        "200":
+          description: ""
     put:
       tags:
         - deposit
@@ -273,15 +274,15 @@ paths:
                   isActive: false
                   name: Santos Andrade
       responses:
-        '200':
-          description: ''
+        "200":
+          description: ""
     parameters:
       - name: id
         in: path
         required: true
         schema:
           type: string
-          example: '1'
+          example: "1"
   /product-movement:
     get:
       tags:
@@ -294,15 +295,15 @@ paths:
           in: query
           schema:
             type: string
-            example: '0'
+            example: "0"
         - name: size
           in: query
           schema:
             type: string
-            example: '20'
+            example: "20"
       responses:
-        '200':
-          description: ''
+        "200":
+          description: ""
     post:
       tags:
         - product-movement
@@ -317,7 +318,7 @@ paths:
               properties:
                 date:
                   type: string
-                  example: '2024-05-25'
+                  example: "2024-05-25"
                 depositId:
                   type: number
                   example: 1
@@ -336,15 +337,15 @@ paths:
             examples:
               create:
                 value:
-                  date: '2024-05-25'
+                  date: "2024-05-25"
                   depositId: 1
                   movementType: IN
                   productId: 1
                   quantity: 10
                   unitaryPrice: 20
       responses:
-        '200':
-          description: ''
+        "200":
+          description: ""
   /product-movement/{id}:
     get:
       tags:
@@ -353,15 +354,15 @@ paths:
       description: find by id
       operationId: findById2
       responses:
-        '200':
-          description: ''
+        "200":
+          description: ""
     parameters:
       - name: id
         in: path
         required: true
         schema:
           type: string
-          example: '2'
+          example: "2"
   /product-movement/product/{id}:
     get:
       tags:
@@ -374,22 +375,22 @@ paths:
           in: query
           schema:
             type: string
-            example: '0'
+            example: "0"
         - name: size
           in: query
           schema:
             type: string
-            example: '10'
+            example: "10"
       responses:
-        '200':
-          description: ''
+        "200":
+          description: ""
     parameters:
       - name: id
         in: path
         required: true
         schema:
           type: string
-          example: '2'
+          example: "2"
   /product-movement/deposit/{id}:
     get:
       tags:
@@ -402,22 +403,22 @@ paths:
           in: query
           schema:
             type: string
-            example: '0'
+            example: "0"
         - name: size
           in: query
           schema:
             type: string
-            example: '10'
+            example: "10"
       responses:
-        '200':
-          description: ''
+        "200":
+          description: ""
     parameters:
       - name: id
         in: path
         required: true
         schema:
           type: string
-          example: '2'
+          example: "2"
   /product-movement/date:
     get:
       tags:
@@ -430,25 +431,25 @@ paths:
           in: query
           schema:
             type: string
-            example: '2024-05-25'
+            example: "2024-05-25"
         - name: endDate
           in: query
           schema:
             type: string
-            example: '2024-05-26'
+            example: "2024-05-26"
         - name: page
           in: query
           schema:
             type: string
-            example: '0'
+            example: "0"
         - name: size
           in: query
           schema:
             type: string
-            example: '10'
+            example: "10"
       responses:
-        '200':
-          description: ''
+        "200":
+          description: ""
   /department:
     get:
       tags:
@@ -461,15 +462,15 @@ paths:
           in: query
           schema:
             type: string
-            example: '0'
+            example: "0"
         - name: size
           in: query
           schema:
             type: string
-            example: '10'
+            example: "10"
       responses:
-        '200':
-          description: ''
+        "200":
+          description: ""
     post:
       tags:
         - department
@@ -490,8 +491,8 @@ paths:
                 value:
                   name: SETOR DE ENGENHARIA
       responses:
-        '200':
-          description: ''
+        "200":
+          description: ""
   /department/{id}:
     get:
       tags:
@@ -500,8 +501,8 @@ paths:
       description: find by id
       operationId: findById3
       responses:
-        '200':
-          description: ''
+        "200":
+          description: ""
     put:
       tags:
         - department
@@ -522,8 +523,8 @@ paths:
                 value:
                   name: SETOR DE AGRONOMIA
       responses:
-        '200':
-          description: ''
+        "200":
+          description: ""
     delete:
       tags:
         - department
@@ -531,15 +532,15 @@ paths:
       description: delete
       operationId: delete1
       responses:
-        '200':
-          description: ''
+        "200":
+          description: ""
     parameters:
       - name: id
         in: path
         required: true
         schema:
           type: string
-          example: '1'
+          example: "1"
   /supplier:
     get:
       tags:
@@ -552,15 +553,15 @@ paths:
           in: query
           schema:
             type: string
-            example: '0'
+            example: "0"
         - name: size
           in: query
           schema:
             type: string
-            example: '10'
+            example: "10"
       responses:
-        '200':
-          description: ''
+        "200":
+          description: ""
     post:
       tags:
         - supplier
@@ -578,23 +579,23 @@ paths:
                   example: Rua Marechal Floriano Peixoto 1250
                 cin:
                   type: string
-                  example: '78652994000118'
+                  example: "78652994000118"
                 name:
                   type: string
                   example: Bar do indio
                 phone:
                   type: string
-                  example: '+554199999999'
+                  example: "+554199999999"
             examples:
               create:
                 value:
                   address: Rua Marechal Floriano Peixoto 1250
-                  cin: '78652994000118'
+                  cin: "78652994000118"
                   name: Bar do indio
-                  phone: '+554199999999'
+                  phone: "+554199999999"
       responses:
-        '200':
-          description: ''
+        "200":
+          description: ""
   /supplier/{id}:
     get:
       tags:
@@ -603,8 +604,8 @@ paths:
       description: find by id
       operationId: findById4
       responses:
-        '200':
-          description: ''
+        "200":
+          description: ""
     put:
       tags:
         - supplier
@@ -622,23 +623,23 @@ paths:
                   example: Rua Marechal Floriano Peixoto 1250
                 cin:
                   type: string
-                  example: '78652994000118'
+                  example: "78652994000118"
                 name:
                   type: string
                   example: Bar do Americano
                 phone:
                   type: string
-                  example: '+554199999999'
+                  example: "+554199999999"
             examples:
               update:
                 value:
                   address: Rua Marechal Floriano Peixoto 1250
-                  cin: '78652994000118'
+                  cin: "78652994000118"
                   name: Bar do Americano
-                  phone: '+554199999999'
+                  phone: "+554199999999"
       responses:
-        '200':
-          description: ''
+        "200":
+          description: ""
     delete:
       tags:
         - supplier
@@ -646,15 +647,15 @@ paths:
       description: delete
       operationId: delete2
       responses:
-        '200':
-          description: ''
+        "200":
+          description: ""
     parameters:
       - name: id
         in: path
         required: true
         schema:
           type: string
-          example: '1'
+          example: "1"
   /cost-center:
     get:
       tags:
@@ -667,15 +668,15 @@ paths:
           in: query
           schema:
             type: string
-            example: '0'
+            example: "0"
         - name: size
           in: query
           schema:
             type: string
-            example: '10'
+            example: "10"
       responses:
-        '200':
-          description: ''
+        "200":
+          description: ""
     post:
       tags:
         - cost-center
@@ -700,8 +701,8 @@ paths:
                   code: CCP01
                   name: Centro de Custos Area da Produção
       responses:
-        '200':
-          description: ''
+        "200":
+          description: ""
   /cost-center/{id}:
     get:
       tags:
@@ -710,8 +711,8 @@ paths:
       description: find by id
       operationId: findById5
       responses:
-        '200':
-          description: ''
+        "200":
+          description: ""
     put:
       tags:
         - cost-center
@@ -736,8 +737,8 @@ paths:
                   code: CCP02
                   name: Centro de Custos Area da Engenharia
       responses:
-        '200':
-          description: ''
+        "200":
+          description: ""
     delete:
       tags:
         - cost-center
@@ -745,15 +746,15 @@ paths:
       description: delete
       operationId: delete3
       responses:
-        '200':
-          description: ''
+        "200":
+          description: ""
     parameters:
       - name: id
         in: path
         required: true
         schema:
           type: string
-          example: '1'
+          example: "1"
   /purchase-request:
     get:
       tags:
@@ -766,15 +767,15 @@ paths:
           in: query
           schema:
             type: string
-            example: '0'
+            example: "0"
         - name: size
           in: query
           schema:
             type: string
-            example: '10'
+            example: "10"
       responses:
-        '200':
-          description: ''
+        "200":
+          description: ""
     post:
       tags:
         - purchase-request
@@ -807,8 +808,8 @@ paths:
                   productId: 1
                   quantity: 10000
       responses:
-        '200':
-          description: ''
+        "200":
+          description: ""
   /purchase-request/{id}:
     get:
       tags:
@@ -817,8 +818,8 @@ paths:
       description: find by id
       operationId: findById6
       responses:
-        '200':
-          description: ''
+        "200":
+          description: ""
     delete:
       tags:
         - purchase-request
@@ -826,15 +827,15 @@ paths:
       description: cancel
       operationId: cancel
       responses:
-        '200':
-          description: ''
+        "200":
+          description: ""
     parameters:
       - name: id
         in: path
         required: true
         schema:
           type: string
-          example: '1'
+          example: "1"
   /quotation:
     get:
       tags:
@@ -847,15 +848,15 @@ paths:
           in: query
           schema:
             type: string
-            example: '0'
+            example: "0"
         - name: size
           in: query
           schema:
             type: string
-            example: '10'
+            example: "10"
       responses:
-        '200':
-          description: ''
+        "200":
+          description: ""
     post:
       tags:
         - quotation
@@ -873,10 +874,10 @@ paths:
                   example: 1
                 date:
                   type: string
-                  example: '2024-05-25'
+                  example: "2024-05-25"
                 expirationDate:
                   type: string
-                  example: '2024-06-31'
+                  example: "2024-06-31"
                 price:
                   type: number
                   example: 10
@@ -890,14 +891,14 @@ paths:
               create:
                 value:
                   costCenterId: 1
-                  date: '2024-05-25'
-                  expirationDate: '2024-06-31'
+                  date: "2024-05-25"
+                  expirationDate: "2024-06-31"
                   price: 10
                   productId: 1
                   supplierId: 1
       responses:
-        '200':
-          description: ''
+        "200":
+          description: ""
   /quotation/{id}:
     get:
       tags:
@@ -906,8 +907,8 @@ paths:
       description: find by id
       operationId: findById7
       responses:
-        '200':
-          description: ''
+        "200":
+          description: ""
     put:
       tags:
         - quotation
@@ -925,10 +926,10 @@ paths:
                   example: 1
                 date:
                   type: string
-                  example: '2024-05-25'
+                  example: "2024-05-25"
                 expirationDate:
                   type: string
-                  example: '2024-05-31'
+                  example: "2024-05-31"
                 price:
                   type: number
                   example: 20
@@ -942,14 +943,14 @@ paths:
               update:
                 value:
                   costCenterId: 1
-                  date: '2024-05-25'
-                  expirationDate: '2024-05-31'
+                  date: "2024-05-25"
+                  expirationDate: "2024-05-31"
                   price: 20
                   productId: 1
                   supplierId: 1
       responses:
-        '200':
-          description: ''
+        "200":
+          description: ""
     delete:
       tags:
         - quotation
@@ -957,15 +958,15 @@ paths:
       description: delete
       operationId: delete4
       responses:
-        '200':
-          description: ''
+        "200":
+          description: ""
     parameters:
       - name: id
         in: path
         required: true
         schema:
           type: string
-          example: '2'
+          example: "2"
   /purchase/{id}:
     get:
       tags:
@@ -974,15 +975,15 @@ paths:
       description: find by id
       operationId: findById8
       responses:
-        '200':
-          description: ''
+        "200":
+          description: ""
     parameters:
       - name: id
         in: path
         required: true
         schema:
           type: string
-          example: '5'
+          example: "5"
   /purchase:
     get:
       tags:
@@ -995,15 +996,15 @@ paths:
           in: query
           schema:
             type: string
-            example: '0'
+            example: "0"
         - name: size
           in: query
           schema:
             type: string
-            example: '10'
+            example: "10"
       responses:
-        '200':
-          description: ''
+        "200":
+          description: ""
   /purchase/invoice/{invoice}:
     get:
       tags:
@@ -1012,8 +1013,8 @@ paths:
       description: find by invoice
       operationId: findByInvoice
       responses:
-        '200':
-          description: ''
+        "200":
+          description: ""
     parameters:
       - name: invoice
         in: path
@@ -1031,15 +1032,15 @@ paths:
       description: find by id
       operationId: findById9
       responses:
-        '200':
-          description: ''
+        "200":
+          description: ""
     parameters:
       - name: id
         in: path
         required: true
         schema:
           type: string
-          example: '1'
+          example: "1"
   /financial-security/to-pay/movements:
     get:
       tags:
@@ -1054,15 +1055,15 @@ paths:
           in: query
           schema:
             type: string
-            example: '0'
+            example: "0"
         - name: size
           in: query
           schema:
             type: string
-            example: '10'
+            example: "10"
       responses:
-        '200':
-          description: ''
+        "200":
+          description: ""
     post:
       tags:
         - financial-security
@@ -1079,7 +1080,7 @@ paths:
               properties:
                 date:
                   type: string
-                  example: '2024-06-12'
+                  example: "2024-06-12"
                 feeValue:
                   type: number
                   example: 0
@@ -1098,15 +1099,15 @@ paths:
             examples:
               create:
                 value:
-                  date: '2024-06-12'
+                  date: "2024-06-12"
                   feeValue: 0
                   financialSecurityToPayId: 2
                   fineValue: 0
                   type: PAYMENT
                   value: 10000
       responses:
-        '200':
-          description: ''
+        "200":
+          description: ""
   /financial-security/to-pay/{id}:
     get:
       tags:
@@ -1116,8 +1117,8 @@ paths:
       description: find by id
       operationId: findById10
       responses:
-        '200':
-          description: ''
+        "200":
+          description: ""
     delete:
       tags:
         - financial-security
@@ -1126,15 +1127,15 @@ paths:
       description: cancel
       operationId: cancel1
       responses:
-        '200':
-          description: ''
+        "200":
+          description: ""
     parameters:
       - name: id
         in: path
         required: true
         schema:
           type: string
-          example: '1'
+          example: "1"
   /financial-security/to-pay:
     get:
       tags:
@@ -1148,15 +1149,15 @@ paths:
           in: query
           schema:
             type: string
-            example: '0'
+            example: "0"
         - name: size
           in: query
           schema:
             type: string
-            example: '10'
+            example: "10"
       responses:
-        '200':
-          description: ''
+        "200":
+          description: ""
   /financial-security/to-pay/invoice/{invoice}:
     get:
       tags:
@@ -1166,8 +1167,8 @@ paths:
       description: find by invoice
       operationId: findByInvoice1
       responses:
-        '200':
-          description: ''
+        "200":
+          description: ""
     parameters:
       - name: invoice
         in: path
@@ -1180,26 +1181,26 @@ paths:
       tags:
         - financial-security
         - to-receive
-        - movements1
+        - movements
       summary: find by id
       description: find by id
       operationId: findById11
       responses:
-        '200':
-          description: ''
+        "200":
+          description: ""
     parameters:
       - name: id
         in: path
         required: true
         schema:
           type: string
-          example: '1'
+          example: "1"
   /financial-security/to-receive/movements:
     get:
       tags:
         - financial-security
         - to-receive
-        - movements1
+        - movements
       summary: find all
       description: find all
       operationId: findAll11
@@ -1208,20 +1209,20 @@ paths:
           in: query
           schema:
             type: string
-            example: '0'
+            example: "0"
         - name: size
           in: query
           schema:
             type: string
-            example: '10'
+            example: "10"
       responses:
-        '200':
-          description: ''
+        "200":
+          description: ""
     post:
       tags:
         - financial-security
         - to-receive
-        - movements1
+        - movements
       summary: create
       description: create
       operationId: create9
@@ -1233,7 +1234,7 @@ paths:
               properties:
                 date:
                   type: string
-                  example: '2024-06-24'
+                  example: "2024-06-24"
                 feeValue:
                   type: number
                   example: 0
@@ -1252,15 +1253,15 @@ paths:
             examples:
               create:
                 value:
-                  date: '2024-06-24'
+                  date: "2024-06-24"
                   feeValue: 0
                   financialSecurityToReceiveId: 1
                   fineValue: 0
                   type: PAYMENT
                   value: 1500
       responses:
-        '200':
-          description: ''
+        "200":
+          description: ""
   /financial-security/to-receive:
     get:
       tags:
@@ -1274,15 +1275,15 @@ paths:
           in: query
           schema:
             type: string
-            example: '0'
+            example: "0"
         - name: size
           in: query
           schema:
             type: string
-            example: '10'
+            example: "10"
       responses:
-        '200':
-          description: ''
+        "200":
+          description: ""
   /financial-security/to-receive/{id}:
     get:
       tags:
@@ -1292,8 +1293,8 @@ paths:
       description: find by id
       operationId: findById12
       responses:
-        '200':
-          description: ''
+        "200":
+          description: ""
     delete:
       tags:
         - financial-security
@@ -1302,15 +1303,15 @@ paths:
       description: cancel
       operationId: cancel2
       responses:
-        '200':
-          description: ''
+        "200":
+          description: ""
     parameters:
       - name: id
         in: path
         required: true
         schema:
           type: string
-          example: '2'
+          example: "2"
   /financial-security/to-receive/invoice/{invoice}:
     get:
       tags:
@@ -1320,8 +1321,8 @@ paths:
       description: find by invoice
       operationId: findByInvoice2
       responses:
-        '200':
-          description: ''
+        "200":
+          description: ""
     parameters:
       - name: invoice
         in: path
@@ -1341,15 +1342,15 @@ paths:
           in: query
           schema:
             type: string
-            example: '0'
+            example: "0"
         - name: size
           in: query
           schema:
             type: string
-            example: '10'
+            example: "10"
       responses:
-        '200':
-          description: ''
+        "200":
+          description: ""
     post:
       tags:
         - client
@@ -1364,22 +1365,22 @@ paths:
               properties:
                 documentNumber:
                   type: string
-                  example: '12345567890'
+                  example: "12345567890"
                 name:
                   type: string
                   example: Arthur
                 phone:
                   type: string
-                  example: '+554199999999999'
+                  example: "+554199999999999"
             examples:
               create:
                 value:
-                  documentNumber: '12345567890'
+                  documentNumber: "12345567890"
                   name: Arthur
-                  phone: '+554199999999999'
+                  phone: "+554199999999999"
       responses:
-        '200':
-          description: ''
+        "200":
+          description: ""
   /client/{id}:
     get:
       tags:
@@ -1388,8 +1389,8 @@ paths:
       description: find by id
       operationId: findById13
       responses:
-        '200':
-          description: ''
+        "200":
+          description: ""
     put:
       tags:
         - client
@@ -1404,22 +1405,22 @@ paths:
               properties:
                 documentNumber:
                   type: string
-                  example: '2136783261831'
+                  example: "2136783261831"
                 name:
                   type: string
                   example: Leonardo
                 phone:
                   type: string
-                  example: '+123567123'
+                  example: "+123567123"
             examples:
               update:
                 value:
-                  documentNumber: '2136783261831'
+                  documentNumber: "2136783261831"
                   name: Leonardo
-                  phone: '+123567123'
+                  phone: "+123567123"
       responses:
-        '200':
-          description: ''
+        "200":
+          description: ""
     delete:
       tags:
         - client
@@ -1427,15 +1428,15 @@ paths:
       description: delete
       operationId: delete5
       responses:
-        '200':
-          description: ''
+        "200":
+          description: ""
     parameters:
       - name: id
         in: path
         required: true
         schema:
           type: string
-          example: '2'
+          example: "2"
   /sale/{id}:
     get:
       tags:
@@ -1444,15 +1445,15 @@ paths:
       description: find by id
       operationId: findById14
       responses:
-        '200':
-          description: ''
+        "200":
+          description: ""
     parameters:
       - name: id
         in: path
         required: true
         schema:
           type: string
-          example: '3'
+          example: "3"
   /sale:
     get:
       tags:
@@ -1465,15 +1466,15 @@ paths:
           in: query
           schema:
             type: string
-            example: '0'
+            example: "0"
         - name: size
           in: query
           schema:
             type: string
-            example: '10'
+            example: "10"
       responses:
-        '200':
-          description: ''
+        "200":
+          description: ""
     post:
       tags:
         - sale
@@ -1512,7 +1513,7 @@ paths:
                   example: 10
                 sellingDate:
                   type: string
-                  example: '2024-06-23'
+                  example: "2024-06-23"
             examples:
               create:
                 value:
@@ -1522,10 +1523,10 @@ paths:
                       quantity: 10
                       unitaryPrice: 10
                   parcels: 10
-                  sellingDate: '2024-06-23'
+                  sellingDate: "2024-06-23"
       responses:
-        '200':
-          description: ''
+        "200":
+          description: ""
 components:
   securitySchemes:
     bearerAuth:
@@ -1535,19 +1536,36 @@ security:
   - bearerAuth: []
 tags:
   - name: users
+    description: Register, login and get all users
   - name: product
+    description: Create, read, update and delete products
   - name: deposit
+    description: Create, read, update and delete deposits
   - name: product-movement
+    description: Create, read and update product movements
   - name: department
+    description: Create, read, update and delete departments
   - name: supplier
+    description: Create, read, update and delete suppliers
   - name: cost-center
+    description: Create, read, update and delete cost centers
   - name: purchase-request
+    description: Create, read and cancel purchase requests
   - name: quotation
+    description: Create, read, update and delete quotations
   - name: purchase
+    description: Create, read and find purchases
   - name: financial-security
+    description: Create, read, update and delete financial securities
   - name: to-pay
+    description: Create, read and cancel to pay financial securities
   - name: movements
+    description: Create, read and update movements
   - name: to-receive
-  - name: movements1
+    description: Create, read and cancel to receive financial securities
+  - name: movements
+    description: Create, read and update movements
   - name: client
+    description: Create, read, update and delete clients
   - name: sale
+    description: Create, read and find sales
